@@ -1,0 +1,23 @@
+<View style={styles.container}>
+        <View style={styles.container1}/>
+        <View>
+          <Text>V E N N P O O L</Text>
+          <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={1} // affects bar animation smoothness
+          pagingEnabled={true}
+          onScroll={
+            Animated.event(
+              [{ nativeEvent: { contentOffset: { x: this.animVal }}}]
+            )
+          }>
+            {imageArray}
+          </ScrollView>
+        </View>
+
+        <View style={styles.barContainer}>{barArray}</View>
+
+        <View style={styles.container3}>
+            <Button title="Sign-Up"/>
+        </View>

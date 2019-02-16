@@ -1,13 +1,23 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import styles from './src/styles/styles.js'  // imports 'styles' variable from ./styles.js
+import React, {Component} from 'react';
+import { View, Text } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import InitialScreen from './src/screens/InitialScreen';
 
-export default class App extends React.Component {
+
+const RootStack = createStackNavigator(
+  {
+    Initial: InitialScreen,
+    // List any other screens below as 'routes'
+  },
+  {
+    initialRouteName: 'Initial',
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
+
+export default class App extends Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>Venn Pool!</Text>
-      </View>
-    );
+    return <AppContainer />;
   }
 }

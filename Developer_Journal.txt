@@ -1,0 +1,58 @@
+# Day 3 (Hackathon Day 1)
+# Setup environment and cloned repo to mac mini.
+
+# HELP:
+# IMPLEMENTATION: Coding
+# Error tags display error description 
+# Solution tags display solutions to previous error tag
+# Package tags display package that needs to be installed.
+
+------------------------------------------------------
+
+IMPLEMENTATION:
+# Error: Missing 'node modules'
+# Solution: run 'npm i' after cloning repo to reinstall dependencies in the project 
+# (Above solution only works if package.json exists in current project directory)
+
+# Error: "Building Javascript bundle" on loop. 
+# Solution: Due to iCloud drive updating every change made.
+# Go to system preferences -> iCloud -> iCloud Drive (Options) -> uncheck Desktops & Documents Folders
+
+# DESIGN:
+# Developed/discussed on a navigation system and app flow.
+# Object-Oriented: Groups contain events and events contain rides(requests and offers)
+# ---Groups-------
+# ------Events----
+# --------Rides---
+# --------Rides---
+# --------Rides---
+# ------Events----
+# --------Rides---
+# --------Rides---
+# --------Rides---
+# ----------------
+
+
+
+# Day 4 (Hackathon Day 2)
+# Start coding first login screen and profile creation page
+# Continue designing screens/ux
+
+# IMPLEMENTATION:
+# Package: npm install --save react-navigation
+# Installs a package that manages navigation system.
+
+# Entry starts at App.js
+# Create a variable that calls the createStackNavigator. This will package
+# 	the routing of the different screens as a React component.
+# Create a variable that calls the createAppContainer containing the createStackNavigator variable.
+# 	This will package the entire entrypoint of the app with the stackNavigator component.
+
+# Package: npm install --save react-native-elements
+# Installs a package that includes ui components.
+
+# Rule: Create components on a separate file if it's a component 
+# 	that will be used multiple times in a file. 
+
+# Package: npm install --save react-native-snap-carousel
+# Installs a package that enables scrolling horizontally like a slideshow in place.
