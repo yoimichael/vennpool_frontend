@@ -67,7 +67,7 @@ class InitialScreen extends Component{
     return (
       <View style={styles.container}>
 
-        <View style={styles.title}> // Fix the title styles
+        <View style={styles.title}>
           <Text>V E N N P O O L</Text>
         </View>
 
