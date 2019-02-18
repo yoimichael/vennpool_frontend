@@ -2,10 +2,11 @@
 # Setup environment and cloned repo to mac mini.
 
 # HELP:
-# IMPLEMENTATION: Coding
-# Error tags display error description 
-# Solution tags display solutions to previous error tag
-# Package tags display package that needs to be installed.
+# IMPLEMENTATION tag are development/coding details
+# DESIGN tag are user experience details
+# Error sub-tags display error description 
+# Solution sub-tags display solutions to previous error tag
+# Package sub-tags display package that needs to be installed.
 
 ------------------------------------------------------
 
@@ -20,7 +21,7 @@ IMPLEMENTATION:
 
 # DESIGN:
 # Developed/discussed on a navigation system and app flow.
-# Object-Oriented: Groups contain events and events contain rides(requests and offers)
+# Object-Oriented: Groups contain events and events contain rides(requests and offers) 
 # ---Groups-------
 # ------Events----
 # --------Rides---
@@ -56,3 +57,39 @@ IMPLEMENTATION:
 
 # Package: npm install --save react-native-snap-carousel
 # Installs a package that enables scrolling horizontally like a slideshow in place.
+
+
+
+
+# Day 5 (2/18/19) 10am-2:45pm
+# It's a nice warm sunny day after a series of rainy days. Time to stay locked inside the basement. Caught Gabriel up to speed with project
+# Setup Digital Ocean account and create droplet.
+# Username: yal318@ucsd.edu
+# Password: venn
+# Droplet password: venndiagram
+# IP: 178.128.177.5
+
+# IMPLEMENTATION:
+# Initial Landing page buttons
+#   Login
+#   Sign-up
+#   Forgot Password (Low Priority)
+#   FB Login API (Low priority) 
+
+# Create Account Page
+#   (Input) Name
+#   (Input) Phone Number
+#   (Input) Email(Optional)
+#   (Button) Submit
+# Inside App.js, root stack, you see "CreateAccount: CreateAccountScreen"
+# That is where the CreateAccountScreen url is extracted from
+# So inside InitialScreen when you click the "Sign-Up" button, it directs you
+# to the CreateAccountScreen. Navigation is done via "this.props.navigation.navigate()"
+
+# Having issue with this.props.navigation.navigate(). 
+# Fixed. There were errors with the file paths.
+
+# Learned to clean up screens by separating component implementation with
+# static display. 
+# Learned to navigate to new page with onclick.
+# Route and Screen management overall improvement

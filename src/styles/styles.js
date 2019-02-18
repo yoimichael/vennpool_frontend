@@ -18,22 +18,26 @@ const styles = StyleSheet.create({
   },
 
   title: {
+    width: Dimensions.get('window').width,
     fontSize: 900,  //FIX
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'yellow',
     flex: .5
   },
-  container2: {
+  carousel: {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     flex: 2
   },  
-  container3: {
+  containerbtn: {
+    width: Dimensions.get('window').width,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
+    backgroundColor: 'yellow',
     flex: 1.5
   },    
 
@@ -46,7 +50,7 @@ const styles = StyleSheet.create({
     height: 2
   },
   barContainer: {
-//    position: 'absolute',
+    // position: 'absolute',
     zIndex: 2,
     // top: 40
     flexDirection: 'row',
@@ -65,10 +69,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     height: 2,
   },
-  button: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    flex: 1
+  btn: {
+    width: 100  
   }
 });
 
