@@ -1,11 +1,12 @@
 import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Animated  } from 'react-native';
 
 const styles = StyleSheet.create({
-  temp: {
-   flex: 1, 
-   alignItems: 'center', 
-   justifyContent: 'flex-start',
-   flexDirection: 'column'
+  txtInput: {
+    height: 30,
+    width: 200,
+    borderColor: 'gray',
+    borderWidth: 1,
+    textAlign: 'center'
   },
 
   // Used for carousel
@@ -13,18 +14,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'grey',
+    backgroundColor: '#FAEBD7',
     flex: 1
   },
 
-  title: {
-    width: Dimensions.get('window').width,
-    fontSize: 900,  //FIX
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'yellow',
-    flex: .5
+  spacer: {
+    flex: .1
   },
   carousel: {
     flexDirection: 'column',
@@ -35,9 +30,9 @@ const styles = StyleSheet.create({
   containerbtn: {
     width: Dimensions.get('window').width,
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'yellow',
+    backgroundColor: '#FAEBD7',
     flex: 1.5
   },    
 
@@ -69,8 +64,17 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     height: 2,
   },
+
+  // For input styling (
   btn: {
-    width: 100  
+    height: 30,
+    width: 200,
+    borderWidth: 1,
+    borderRadius: 50,
+    backgroundColor: 'orange'
+  },
+  txtBtn:{
+    textAlign: 'center'
   }
 });
 

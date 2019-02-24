@@ -1,6 +1,6 @@
 import React,  { Component } from 'react';
 import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Animated  } from 'react-native';
-import styles from '../styles/Styles';
+import styles from '../styles/InitialStyles';
 
 const deviceWidth = Dimensions.get('window').width;
 const FIXED_BAR_WIDTH = 100; //280

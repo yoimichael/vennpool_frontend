@@ -93,3 +93,29 @@ IMPLEMENTATION:
 # static display. 
 # Learned to navigate to new page with onclick.
 # Route and Screen management overall improvement
+
+
+
+# Day 6 (2/23/19)
+# Took me 7 tries to parallel park.
+# Yang, Gabriel, Martin, Kimo
+# Daily Goals: Implement the following screens
+#   Create Account Screen
+#   Welcome/Tutorial Screen?
+#   Reset Password Screen
+#   Home Screen
+# Design 
+#   Carousel Information (usage)
+#   Welcome Information (specific usage)
+
+# IMPLEMENTATION:
+# Initial Screen (Increased fidelity)
+#   Removed header
+#   Added animation keyboard when input pressed
+#   TODO: "Package" TextInput and Touchable component as a "form"
+#          that redirects based on if input is registered in database.
+#          If phone number exists, redirect to continuing user workflow ((LOGIN)Home)
+#          Else, redirect to new user workflow (Create account - > Welcome -> Home)
+# Package: npm i react-native-keyboard-aware-scroll-view --save
+# (Might need to uninstall; used animate.view instead to manage this)
+
