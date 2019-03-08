@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'orange'
   },
   txtBtn:{
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 20
   }
 });
 

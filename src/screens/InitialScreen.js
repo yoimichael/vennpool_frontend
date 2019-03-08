@@ -17,47 +17,7 @@ class InitialScreen extends Component{
 
   constructor(props){
     super(props);
-    this.state = {text: '(xxx)-xxx-xxxx'};
-
-    this.keyboardHeight = new Animated.Value(0);
-    this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
   }
-
-  componentWillMount () {
-    this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
-    this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
-  }
-
-  componentWillUnmount() {
-    this.keyboardWillShowSub.remove();
-    this.keyboardWillHideSub.remove();
-  }
-
-  keyboardWillShow = (event) => {
-    Animated.parallel([
-      Animated.timing(this.keyboardHeight, {
-        duration: event.duration,
-        toValue: event.endCoordinates.height,
-      }),
-      Animated.timing(this.imageHeight, {
-        duration: event.duration,
-        toValue: IMAGE_HEIGHT_SMALL,
-      }),
-    ]).start();
-  };
-
-  keyboardWillHide = (event) => {
-    Animated.parallel([
-      Animated.timing(this.keyboardHeight, {
-        duration: event.duration,
-        toValue: 0,
-      }),
-      Animated.timing(this.imageHeight, {
-        duration: event.duration,
-        toValue: IMAGE_HEIGHT,
-      }),
-    ]).start();
-  };
 
   render() {
     return (
@@ -66,25 +26,15 @@ class InitialScreen extends Component{
           <CarouselView/>
         </View>
         
-        <Animated.View 
-          style={
-            [styles.container, { 
-            paddingTop: 10, 
-            paddingBottom: this.keyboardHeight 
-          }]}
-        >
-            <TextInput
-              style={styles.txtInput}
-              onChangeText={(text) => this.setState({text})}
-              value={this.state.text}
-            />
-            <View style={styles.spacer}></View>
-            <TouchableOpacity 
-              style={styles.btn} 
-              onPress={() => this.props.navigation.navigate('CreateAccount')}>
-                <Text style={styles.txtBtn}>Submit</Text>
-            </TouchableOpacity>
-        </Animated.View>
+        <View style={styles.container}>
+          <View style={styles.spacer}></View>
+          <Text>Please Login with Facebook</Text>
+          <TouchableOpacity 
+            style={styles.btn} 
+            onPress={() => this.props.navigation.navigate('CreateAccount')}>
+              <Text style={styles.txtBtn}>Facebook</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   } // end of render

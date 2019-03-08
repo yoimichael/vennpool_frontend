@@ -1,19 +1,37 @@
 import React, {Component} from 'react';
 import { View, Text } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+
+// Implemented
 import InitialScreen from './src/screens/InitialScreen';
 import CreateAccountScreen from './src/screens/CreateAccountScreen';
+// Not Implemented
+import HomeScreen from './src/screens/HomeScreen';
+//import OfferRideScreen from './src/screens/OfferRideScreen';
+//import RideDetailScreen from './src/screens/RideDetailScreen';
+//import EventDetailScreen from './src/screens/EventDetailScreen';
 
+// Routes
 const RootStack = createStackNavigator(
   {
     Initial: InitialScreen,
     CreateAccount: CreateAccountScreen,
-    // List any other screens below as 'routes'
+    Home: HomeScreen
   },
   {
     initialRouteName: 'Initial',
   }
 );
+
+// const HomeStack = createStackNavigator{
+//   {
+//     Home: HomeScreen,
+//     //OfferRide: OfferRideScreen, 
+//     //RideDetail: RideDetailScreen,
+//     //EventDetail: EventDetailScreen,
+//   }
+// }
+
 
 const AppContainer = createAppContainer(RootStack);
 

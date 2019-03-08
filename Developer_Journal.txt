@@ -119,3 +119,17 @@ IMPLEMENTATION:
 # Package: npm i react-native-keyboard-aware-scroll-view --save
 # (Might need to uninstall; used animate.view instead to manage this)
 
+
+
+# Day 7 (3/2/19)
+# Light rain, heavy mood
+# Yang, Kimo, Celine, Martin
+# Daily Goal: Redesign Wireframe, Continue working on front end ui skeleton code
+# Vennpool 2.0: https://xd.adobe.com/spec/04931d36-74d4-411d-6e33-45ab2d591740-72a2/
+
+# IMPLEMENTATION:
+# Setted up HomeScreen, started on working on creating an EventCard component.
+# Removed backswipe gesture once at the homescreen with gestureEnabled: false and headerLeft: null.
+
+# Task: create the other screens and link properly. Focus on skeleton code so we can start working on facebook implementation.
+

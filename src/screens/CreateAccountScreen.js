@@ -1,20 +1,22 @@
 // First landing page upon opening app
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, TextInput, Image, ScrollView, Dimensions, Animated  } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Dimensions, Animated  } from 'react-native';
 import ResponsiveImage from 'react-native-responsive-image';
 import { Button, ThemeProvider } from 'react-native-elements';
 import styles from '../styles/CreateAccountStyles';
 
-// Photo (Optional)
-// Name (required)
-// Car Info (Optional)
-// Email (Optional)
+// Required: name
+// Optional: picture
+// Optional: carColor
+// Optional: carMake
+// Optional: carModel
+// Optional: contact
 
 class CreateAccountScreen extends Component{
   static navigationOptions = {
     title: 'Create Account',
     headerStyle: {
-      height: 100,
+      height: 75,
       backgroundColor: '#FAEBD7',
     },
     headerTintColor: 'black',
@@ -27,8 +29,10 @@ class CreateAccountScreen extends Component{
     super(props);
     this.state = {
       name: '',
-      carInfo: '',
-      email: '',
+      carColor: '',
+      carMake: '',
+      carModel: '',
+      contact: '',
       clicked: false
     }
     tag: null
@@ -49,6 +53,7 @@ class CreateAccountScreen extends Component{
         <View style={styles.containerBottom}>
           <View style={styles.inputRow}>
             <Text style={styles.inputTitle}>Name: </Text>
+            <View style={styles.spacer}/>   
             <TextInput
               style={styles.txtInput}
               onChangeText={(name) => this.setState({name})}
@@ -65,13 +70,14 @@ class CreateAccountScreen extends Component{
           <View style={styles.spacer}/>
 
           <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Car Info: </Text>
+            <Text style={styles.inputTitle}>Car Color: </Text>
+            <View style={styles.spacer}/> 
             <TextInput
               style={styles.txtInput}
-              onChangeText={(carInfo) => this.setState({carInfo})}
+              onChangeText={(carColor) => this.setState({carColor})}
               keyboardType='default'
-              value={this.state.carInfo}
-              placeholder='Silver Hyundai Sonata 2013'
+              value={this.state.carColor}
+              placeholder='Silver'
               placeholderTextColor='gray'
               borderBottomColor='gray'
               borderBottomWidth={1}
@@ -81,17 +87,60 @@ class CreateAccountScreen extends Component{
           <View style={styles.spacer}/>   
 
           <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Email: </Text>     
+            <Text style={styles.inputTitle}>Car Make: </Text>
+            <View style={styles.spacer}/>      
             <TextInput
               style={styles.txtInput}
-              onChangeText={(email) => this.setState({email})}
+              onChangeText={(carMake) => this.setState({carMake})}
               keyboardType='default'
-              value={this.state.email}
-              placeholder='Email'
+              value={this.state.carMake}
+              placeholder='Hyundai'
               placeholderTextColor='gray'
               borderBottomColor='gray'
               borderBottomWidth={1}
             />
+          </View>
+          
+          <View style={styles.spacer}/>   
+
+          <View style={styles.inputRow}>
+            <Text style={styles.inputTitle}>Car Model: </Text>
+            <View style={styles.verticalSpacer}/>      
+            <TextInput
+              style={styles.txtInput}
+              onChangeText={(carModel) => this.setState({carModel})}
+              keyboardType='default'
+              value={this.state.carModel}
+              placeholder='Sonata'
+              placeholderTextColor='gray'
+              borderBottomColor='gray'
+              borderBottomWidth={1}
+            />
+          </View>
+
+          <View style={styles.spacer}/>   
+
+          <View style={styles.inputRow}>
+            <Text style={styles.inputTitle}>Contact: </Text>
+            <View style={styles.spacer}/>      
+            <TextInput
+              style={styles.txtInput}
+              onChangeText={(contact) => this.setState({contact})}
+              keyboardType='default'
+              value={this.state.contact}
+              placeholder='(xxx) - xxx - xxxxx'
+              placeholderTextColor='gray'
+              borderBottomColor='gray'
+              borderBottomWidth={1}
+            />
+          </View>
+
+          <View style={styles.container}>
+            <TouchableOpacity 
+              style={styles.btn} 
+              onPress={() => this.props.navigation.navigate('Home')}>
+                <Text style={styles.txtBtn}>Submit</Text>
+            </TouchableOpacity>
           </View>
         </View>       
       </View>
