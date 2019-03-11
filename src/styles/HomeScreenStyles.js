@@ -13,16 +13,13 @@ const styles = StyleSheet.create({
   },
   
   // For input styling (
-  btn: {
-    height: 30,
-    width: 200,
-    borderWidth: 1,
-    borderRadius: 50,
-    backgroundColor: 'orange'
-  },
   txtBtn:{
     textAlign: 'center',
-    fontSize: 20
+    fontSize: 15,
+    color: 'white',
+  },
+  logoutBtn: {
+    width: 100
   }
 });
 

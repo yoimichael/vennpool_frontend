@@ -7,19 +7,28 @@ import styles from '../styles/HomeScreenStyles';
 import EventCard from '../components/EventCard';
 
 class HomeScreen extends Component{
-  static navigationOptions = {
-    title: 'Rideshare Feed',
-    headerStyle: {
-      height: 75,
-      backgroundColor: '#009ECE',
-    },
-    headerTintColor: 'white',
-    headerTitleStyle:{
-      fontWeight: 'bold'
-    },
-    headerLeft: null,
-    gesturesEnabled: false // Check if it breaks the app
-  };
+  static navigationOptions = ({navigation}) => {
+    return{
+      title:       'RideShare',
+      headerLeft:  null,
+      headerRight: 
+        <TouchableOpacity 
+          style={styles.logoutBtn} 
+          onPress={() => navigation.navigate('Initial')}>
+            <Text style={styles.txtBtn}>Logout</Text>
+        </TouchableOpacity>,
+
+      headerStyle: {
+          height: 75,
+          backgroundColor: '#009ECE',
+      },
+      headerTintColor: 'white',
+      headerTitleStyle:{
+        fontWeight: 'bold'
+      },
+      gesturesEnabled: false // Check if it breaks the app
+    }
+  }
 
   render() {
     return (

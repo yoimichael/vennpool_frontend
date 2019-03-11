@@ -133,3 +133,28 @@ IMPLEMENTATION:
 
 # Task: create the other screens and link properly. Focus on skeleton code so we can start working on facebook implementation.
 
+
+
+# Day 8 (3/7/19)
+# In Geisel, programming with Michael.
+
+# IMPLEMENTATION:
+# List Views: Two kinds, flatlist and sectionlist
+#   Flatlist displays data as you scrolldown.
+#   Sectionlist is the same, but breaks the data into multiple "sections" with headers for each section (we want this one).
+
+
+
+# Day 9 (3/10/19) 5pm-
+# Super heckin windy outside. 
+# It's a good thing that Geisel is hen toasty. 
+# Yang, Martin
+
+# IMPLEMENTATION:
+#   Yang started working on FB login on react native (not expo).
+#   He researched use of redux.
+#   Martin is almost finished with the eventcard and ridecard component. 
+
+# TODO: 
+#   Martin still needs to separate the eventcard and ridecard into components.
+#   Currently the sectionlist combines both into one component.

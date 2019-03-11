@@ -1,28 +1,53 @@
 import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Animated  } from 'react-native';
 
+const deviceWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
 
 
   // Used for input box styling
-  container: {
+  container:{
+    flex: 1,
+    marginTop: 0,
+  },
+  subCardHeaderContainer:{
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10
+  },
+  subCardTxtContainer:{
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FAEBD7',
-    flex: 1
+    margin: 10
   },
-  
-  // For input styling (
-  btn: {
-    height: 30,
-    width: 200,
-    borderWidth: 1,
-    borderRadius: 50,
-    backgroundColor: 'orange'
+  itemContainer: {
+    flex: 1,
+    width: deviceWidth,
+    flexDirection: 'column',
+    backgroundColor: 'rgb(98, 197, 184)'
   },
-  txtBtn:{
-    textAlign: 'center',
-    fontSize: 20
+
+  header: {
+    flex: 1,
+    backgroundColor: 'rgb(77,120,140)'
+  },
+  headerTxt:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    margin: 20
+  },
+
+  subCardHeader:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'rgb(173, 252, 250)',
+  },
+  subCardTxt:{
+    fontSize: 16,
+    color: 'rgb(173,252, 250)'
   }
 });
 
