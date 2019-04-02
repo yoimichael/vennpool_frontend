@@ -9,8 +9,8 @@ import EventCard from '../components/EventCard';
 class HomeScreen extends Component{
   static navigationOptions = ({navigation}) => {
     return{
-      title:       'RideShare',
-      headerLeft:  null,
+      title: 'RideShare',
+      headerLeft: null,
       headerRight: 
         <TouchableOpacity 
           style={styles.logoutBtn} 
@@ -30,9 +30,27 @@ class HomeScreen extends Component{
     }
   }
 
+  constructor(props){
+    super(props);
+    this.state = {
+      search: '',
+    }
+    tag: null
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        <TextInput
+          style={styles.txtInput}
+          onChangeText={(search) => this.setState({search})}
+          keyboardType='default'
+          value={this.state.name}
+          placeholder='Search Event (Placeholder)'
+          placeholderTextColor='gray'
+          borderBottomColor='gray'
+          borderBottomWidth={1}
+        />        
         <EventCard/>
       </View>
     );

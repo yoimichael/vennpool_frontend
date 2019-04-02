@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: deviceWidth,
     flexDirection: 'column',
-    backgroundColor: 'rgb(98, 197, 184)'
+    backgroundColor: 'rgb(98, 197, 184)', 
+    marginBottom: 5
   },
 
   header: {
@@ -48,7 +49,23 @@ const styles = StyleSheet.create({
   subCardTxt:{
     fontSize: 16,
     color: 'rgb(173,252, 250)'
-  }
+  },
+
+  btn: {
+    height: 30,
+    width: 200,
+    borderWidth: 1,
+    borderRadius: 50,
+    backgroundColor: 'orange'
+  },
+
+
+  SectionListItemStyle: {
+    fontSize: 15,
+    padding: 15,
+    color: 'black',
+    backgroundColor: 'white',
+  },
 });
 
 export default styles;

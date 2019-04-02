@@ -5,10 +5,10 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 // Implemented
 import InitialScreen from './src/screens/InitialScreen';
 import CreateAccountScreen from './src/screens/CreateAccountScreen';
-// Not Implemented
 import HomeScreen from './src/screens/HomeScreen';
+// Not Implemented
+import RideDetailScreen from './src/screens/RideDetailScreen';
 //import OfferRideScreen from './src/screens/OfferRideScreen';
-//import RideDetailScreen from './src/screens/RideDetailScreen';
 //import EventDetailScreen from './src/screens/EventDetailScreen';
 
 // Routes
@@ -16,7 +16,8 @@ const RootStack = createStackNavigator(
   {
     Initial: InitialScreen,
     CreateAccount: CreateAccountScreen,
-    Home: HomeScreen
+    Home: HomeScreen,
+    RideDetail: RideDetailScreen
   },
   {
     initialRouteName: 'Initial',

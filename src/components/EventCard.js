@@ -1,36 +1,8 @@
 import React,  { Component } from 'react';
-import { StyleSheet, View, Text, Image, SectionList} from 'react-native';
+import { StyleSheet, View, Text, SectionList, Alert, TouchableOpacity} from 'react-native';
 import styles from '../styles/EventCardStyles';
 import {sectionListData} from '../data/sectionListData';
-
-class SectionListItem extends Component{
-  render(){
-    return(
-      <View style={styles.itemContainer}>
-        <View style={styles.subCardHeaderContainer}>
-          <Text style={styles.subCardHeader}>
-            Driver: {this.props.item.admin}
-          </Text>
-          <Text style={styles.subCardHeader}>
-            Seats Available: {this.props.item.seats}
-          </Text>
-        </View>
-
-        <View style={styles.subCardTxtContainer}>
-          <Text style={styles.subCardTxt}>
-            Pickup Location Preference: {this.props.item.fromAddr}
-          </Text>
-          <Text style={styles.subCardTxt}>
-            Destination Location: {this.props.item.toAddr}
-          </Text>
-          <Text style={styles.subCardTxt}>
-            Departure Time: {this.props.item.time}
-          </Text>
-        </View>
-      </View>
-    );
-  }
-}
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 class SectionHeader extends Component {
   render() {
@@ -41,25 +13,58 @@ class SectionHeader extends Component {
     );
   }
 }
+
 class EventCard extends Component{
-  
+  // Shows the SectionList component item click value using Alert
+  GetSectionListItem = item => {
+    return(Alert.alert(item));
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <SectionList
-            renderItem={( {item, index} ) =>{
-              return(<SectionListItem item={item} index={index}></SectionListItem>);
-            }}
-            renderSectionHeader={ ({section}) => {
-              return(<SectionHeader section={section}/>);
-            }}
+          renderItem={( {item} ) =>
+            <TouchableOpacity 
+              onPress={this.GetSectionListItem.bind(this, 
+                `Ride Details: \n\n` + 
+                `Driver: ` + item.admin + `\n` + 
+                `Pickup Location Preference: ` + item.fromAddr + `\n` + 
+                `Destination Location: ` + item.toAddr + `\n` +
+                `Departure Time: ` + item.time + `\n` +
+                `Available Seats: ` + item.seats + `\n`
+                )}>
+                <View style={styles.itemContainer}>
+                  <View style={styles.subCardHeaderContainer}>
+                    <Text style={styles.subCardHeader}>
+                      Driver: {item.admin}
+                    </Text>
+                    <Text style={styles.subCardHeader}>
+                      Seats Available: {item.seats}
+                    </Text>
+                  </View>
 
-            sections={sectionListData}
-            keyExtractor={(item, index) => item.admin}>
+                  <View style={styles.subCardTxtContainer}>
+                    <Text style={styles.subCardTxt}>
+                      Pickup Location Preference: {item.fromAddr}
+                    </Text>
+                    <Text style={styles.subCardTxt}>
+                      Destination Location: {item.toAddr}
+                    </Text>
+                    <Text style={styles.subCardTxt}>
+                      Departure Time: {item.time}
+                    </Text>
+                  </View>
+                </View>
+            </TouchableOpacity>
+          }
+          renderSectionHeader={ ({section}) => {
+            return(<SectionHeader section={section}/>);
+          }}
+          sections={sectionListData}
+          keyExtractor={(item, index) => item.admin}>
         </SectionList>
-
       </View> 
-
     );
   }
 }
