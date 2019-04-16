@@ -145,7 +145,7 @@ IMPLEMENTATION:
 
 
 
-# Day 9 (3/10/19) 5pm-
+# Day 9 (3/10/19) 5pm-7pm
 # Super heckin windy outside. 
 # It's a good thing that Geisel is hen toasty. 
 # Yang, Martin
@@ -158,3 +158,32 @@ IMPLEMENTATION:
 # TODO: 
 #   Martin still needs to separate the eventcard and ridecard into components.
 #   Currently the sectionlist combines both into one component.
+
+
+
+# Day 10 (4/2/19) 11am-3pm
+# Yang, Martin, Gabriel
+# Start working on Redux; caught up with stuff worked on over break
+# Yang has a working implementation of facebook login.
+# We don't need to eject into react native yet, so continue w/ expo
+
+# Yang working on control flow. Gabriel working on FB implementation.
+# Martin working on redux. Using TODO app redux tutorial on youtube
+#   as a start. Once implemented, refactor to work with our app.
+#   Video #3 TODO 5:00
+
+
+
+# Day 11 (4/9/19) 2:11am
+# Yang, Gabriel, and Martin
+# Gabriel likes bittersweet flavors. Favorite Juice: Grapefruit or Cranberry,
+# Created a development plan on team drive.
+
+# IMPLEMENTATION:
+#   Look through the code again in the video and see if there's a part I missed.
+#   Finished video and app has no errors, but app doesn't add input text to todo list.
+#   After taking about how our app handles events, Yang updated database schema.
+#   Facebook Events: 
+#     Going = rsvp: attending
+#     Maybe = rsvp: unsure
+#     Can't Go = (doesn't show up event at all)

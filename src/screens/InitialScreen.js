@@ -7,7 +7,32 @@ import { Button, ThemeProvider } from 'react-native-elements';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL }from '../styles/InitialStyles';
 import CarouselView from '../components/CarouselView';
 
+//router
+import {Actions} from 'react-native-router-flux'
+//redux
+import {connect} from 'react-redux';
+//actions
+import {signInOnDatabase,signInWithFacebook} from '../actions/auth_actions'
+
 class InitialScreen extends Component{
+    onSignInWithFacebook = async () => {
+      // sign user in on fb
+      const {type, token, data} = await signInWithFacebook();
+  
+      // sign user in on gepu
+      this.props.signInOnDatabase(token,data).then(({exist, db_token}) => {
+          // when a resolve is issued
+          console.log(`signInOnDatabase success, exist: ${exist}, db_token: ${db_token}`);
+          if (exist)
+              Actions.Home();
+          else
+              Actions.Main();
+        }).catch((error) => {
+            // when a reject is issued
+            console.log(error)
+        });
+  }
+
   static navigationOptions = {
     headerStyle: {
       height: 0,
@@ -31,7 +56,7 @@ class InitialScreen extends Component{
           <Text>Please Login with Facebook</Text>
           <TouchableOpacity 
             style={styles.btn} 
-            onPress={() => this.props.navigation.navigate('CreateAccount')}>
+            onPress={this.onSignInWithFacebook}>
               <Text style={styles.txtBtn}>Facebook</Text>
           </TouchableOpacity>
         </View>
@@ -41,4 +66,4 @@ class InitialScreen extends Component{
 } // end of class
 
 
-export default InitialScreen;
+export default connect(null, {signInOnDatabase})(InitialScreen);

@@ -5,14 +5,47 @@ import ResponsiveImage from 'react-native-responsive-image';
 import { Button, ThemeProvider } from 'react-native-elements';
 import styles from '../styles/CreateAccountStyles';
 
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+import { createUserOnDatabase }  from '../actions/auth_actions'
+
 // Required: name
 // Optional: picture
 // Optional: carColor
 // Optional: carMake
 // Optional: carModel
-// Optional: contact
+// Optional: phone
 
 class CreateAccountScreen extends Component{
+
+  onSubmit(data) {
+    this.setState({error: error}); //clear out error messages
+
+    console.log(`user: ${this.props.user}`);
+    // reorganize the data to to fit the database model
+    const user_data = {
+      phone: this.state.phone,
+      name : this.props.user['name'],
+      fb_id : this.props.user['id'],
+      fbtoken : this.props.user['fbtoken'],
+      car_info : this.state.carModel + '|' + this.state.carMake + '|' + this.state.carColor,
+    };
+    console.log(`submit: ${user_data}`);
+    // create user on redux and gepu db
+    this.props.createUserOnDatabase(this.props.db_token, user_data, this.onSuccess, this.onError);
+  }
+
+  onSuccess() {
+    // if form successfully submits, go to home page
+    Actions.Home()
+  }
+
+  onError(error) {
+    console.log(`FORM error: ${error}`);
+
+    //this.setState({error: this.state.error});
+  }
+
   static navigationOptions = {
     title: 'Create Account',
     headerStyle: {
@@ -32,10 +65,14 @@ class CreateAccountScreen extends Component{
       carColor: '',
       carMake: '',
       carModel: '',
-      contact: '',
+      phone: '',
       clicked: false
     }
     tag: null
+
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onSuccess = this.onSuccess.bind(this);
+    this.onError = this.onError.bind(this);
 
   }
   render() {
@@ -121,13 +158,13 @@ class CreateAccountScreen extends Component{
           <View style={styles.spacer}/>   
 
           <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Contact: </Text>
+            <Text style={styles.inputTitle}>Phone: </Text>
             <View style={styles.spacer}/>      
             <TextInput
               style={styles.txtInput}
-              onChangeText={(contact) => this.setState({contact})}
+              onChangeText={(phone) => this.setState({phone})}
               keyboardType='default'
-              value={this.state.contact}
+              value={this.state.phone}
               placeholder='(xxx) - xxx - xxxxx'
               placeholderTextColor='gray'
               borderBottomColor='gray'
@@ -138,7 +175,7 @@ class CreateAccountScreen extends Component{
           <View style={styles.container}>
             <TouchableOpacity 
               style={styles.btn} 
-              onPress={() => this.props.navigation.navigate('Home')}>
+              onPress={this.onSubmit}>
                 <Text style={styles.txtBtn}>Submit</Text>
             </TouchableOpacity>
           </View>
@@ -148,6 +185,10 @@ class CreateAccountScreen extends Component{
   } // end of render
 } // end of class
 
+// give db token from redux to the component
+function mapStateToProps(state) {
+  const { db_token,user } = state;
+  return { db_token: state['auth']['db_token'], user: state['auth']['user'] }
+}
 
-
-export default CreateAccountScreen;
+export default connect(mapStateToProps, { createUserOnDatabase })(CreateAccountScreen);

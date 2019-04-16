@@ -5,13 +5,6 @@ import ResponsiveImage from 'react-native-responsive-image';
 import { Button, ThemeProvider } from 'react-native-elements';
 import styles from '../styles/HomeScreenStyles';
 import EventCard from '../components/EventCard';
-import TodoApp from '../TodoApp';
-
-//actions
-import {signOut} from "../actions/auth_actions";
-
-import {Actions} from 'react-native-router-flux';
-import {connect} from 'react-redux';
 
 class HomeScreen extends Component{
   static navigationOptions = ({navigation}) => {
@@ -21,7 +14,7 @@ class HomeScreen extends Component{
       headerRight: 
         <TouchableOpacity 
           style={styles.logoutBtn} 
-          onPress={this.onSignOut}>
+          onPress={() => navigation.navigate('Initial')}>
             <Text style={styles.txtBtn}>Logout</Text>
         </TouchableOpacity>,
 
@@ -36,22 +29,7 @@ class HomeScreen extends Component{
       gesturesEnabled: false // Check if it breaks the app
     }
   }
-  onSignOutSuccess(){
-      console.log("log out success");
-      Actions.reset("Auth");
-  }
-  onSignOutError(message){
-      console.log("log out error" + message);
-      Alert.alert('Oops!', message);
-  }
-  onSignOut = () => {
-      this.props.signOut(
-          this.props.db_token,
-          this.props.user['fb_id'],
-          this.onSignOutSuccess,
-          this.onSignOutError
-      );
-  }
+
   constructor(props){
     super(props);
     this.state = {
@@ -62,16 +40,23 @@ class HomeScreen extends Component{
 
   render() {
     return (
-      <TodoApp/>
+      <View style={styles.container}>
+        <TextInput
+          style={styles.txtInput}
+          onChangeText={(search) => this.setState({search})}
+          keyboardType='default'
+          value={this.state.name}
+          placeholder='Search Event (Placeholder)'
+          placeholderTextColor='gray'
+          borderBottomColor='gray'
+          borderBottomWidth={1}
+        />        
+        <EventCard/>
+      </View>
     );
   } // end of render
 } // end of class
 
-function mapStateToProps(state) {
-  const { db_token,user } = state;
-  // console.log(`loading state: ${state['auth']['db_token']}`);
-  return { db_token: state['auth']['db_token'], user: state['auth']['user'] }
-}
 
-// TODO:: more dispatch functions
-export default connect(mapStateToProps, {signOut, })(HomeScreen);
+
+export default HomeScreen;

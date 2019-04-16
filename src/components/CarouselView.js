@@ -64,7 +64,7 @@ class CarouselView extends Component{
     return (
       <ScrollView
       horizontal={true}
-      showsHorizontalScrollIndicator={false}
+      showsHorizontalScrollIndicator={true}
       scrollEventThrottle={1} // affects bar animation smoothness
       pagingEnabled={true}
       onScroll={

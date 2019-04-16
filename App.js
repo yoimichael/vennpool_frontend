@@ -2,27 +2,27 @@ import React, {Component} from 'react';
 import { View, Text } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-// Implemented
-import InitialScreen from './src/screens/InitialScreen';
-import CreateAccountScreen from './src/screens/CreateAccountScreen';
-import HomeScreen from './src/screens/HomeScreen';
-// Not Implemented
-import RideDetailScreen from './src/screens/RideDetailScreen';
-//import OfferRideScreen from './src/screens/OfferRideScreen';
-//import EventDetailScreen from './src/screens/EventDetailScreen';
+import { Font, AppLoading } from 'expo';
+//redux
+import { Provider } from 'react-redux';
+import Router from './routes'
+import store from './src/store';
 
-// Routes
-const RootStack = createStackNavigator(
-  {
-    Initial: InitialScreen,
-    CreateAccount: CreateAccountScreen,
-    Home: HomeScreen,
-    RideDetail: RideDetailScreen
-  },
-  {
-    initialRouteName: 'Initial',
-  }
-);
+function cacheFonts(fonts) {
+    return fonts.map(font => Font.loadAsync(font));
+}
+
+// const RootStack = createStackNavigator(
+//   {
+//     Initial: InitialScreen,
+//     CreateAccount: CreateAccountScreen,
+//     Home: HomeScreen,
+//     RideDetail: RideDetailScreen
+//   },
+//   {
+//     initialRouteName: 'Initial',
+//   }
+// );
 
 // const HomeStack = createStackNavigator{
 //   {
@@ -34,10 +34,46 @@ const RootStack = createStackNavigator(
 // }
 
 
-const AppContainer = createAppContainer(RootStack);
+// const AppContainer = createAppContainer(RootStack);
 
 export default class App extends Component {
+
+  constructor() {
+          super();
+          this.state = {
+          isReady: false,
+      }
+   }
+
+  async _loadAssetsAsync() {
+       const fontAssets = cacheFonts([
+           {RobotoExtraBold: require('./assets/fonts/Roboto-Black.ttf')},
+           {RobotoBold: require('./assets/fonts/Roboto-Bold.ttf')},
+           {RobotoMedium: require('./assets/fonts/Roboto-Medium.ttf')},
+           {RobotoRegular: require('./assets/fonts/Roboto-Regular.ttf')},
+           {RobotoLight: require('./assets/fonts/Roboto-Light.ttf')}
+       ]);
+
+       await Promise.all([...fontAssets]);
+  }
+
   render() {
-    return <AppContainer />;
+      if (!this.state.isReady) {
+         return (
+             <AppLoading
+                 startAsync={this._loadAssetsAsync}
+                 onFinish={() => this.setState({isReady: true})}
+                 onError={console.warn}
+             />
+         );
+     }
+    return (
+      <Provider store={store}>
+        <Router/>
+      </Provider>
+
+      )
   }
 }
+
+
