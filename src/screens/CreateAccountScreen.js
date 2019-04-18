@@ -19,7 +19,7 @@ import { createUserOnDatabase }  from '../actions/auth_actions'
 class CreateAccountScreen extends Component{
 
   onSubmit(data) {
-    this.setState({error: error}); //clear out error messages
+    // this.setState({error: error}); //clear out error messages
 
     console.log(`user: ${this.props.user}`);
     // reorganize the data to to fit the database model

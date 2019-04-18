@@ -14,6 +14,30 @@ import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 
 class HomeScreen extends Component{
+  onSignOutSuccess(){
+      console.log("log out success");
+      Actions.reset("Auth");
+  }
+  onSignOutError(message){
+      console.log("log out error" + message);
+      Alert.alert('Oops!', message);
+  }
+  onSignOut = () => {
+      console.log("Trying to log out.")
+      this.props.signOut(
+          this.props.db_token,
+          this.props.user['fb_id'],
+          this.onSignOutSuccess,
+          this.onSignOutError
+      );
+  }
+  constructor(props){
+    super(props);
+    this.state = {
+      search: '',
+    }
+    tag: null
+  }
   static navigationOptions = ({navigation}) => {
     return{
       title: 'RideShare',
@@ -36,34 +60,19 @@ class HomeScreen extends Component{
       gesturesEnabled: false // Check if it breaks the app
     }
   }
-  onSignOutSuccess(){
-      console.log("log out success");
-      Actions.reset("Auth");
-  }
-  onSignOutError(message){
-      console.log("log out error" + message);
-      Alert.alert('Oops!', message);
-  }
-  onSignOut = () => {
-      this.props.signOut(
-          this.props.db_token,
-          this.props.user['fb_id'],
-          this.onSignOutSuccess,
-          this.onSignOutError
-      );
-  }
-  constructor(props){
-    super(props);
-    this.state = {
-      search: '',
-    }
-    tag: null
-  }
-
   render() {
-    return (
-      <TodoApp/>
-    );
+    return (<View>
+
+        <TouchableOpacity 
+          style={styles.logoutBtn} 
+          onPress={this.onSignOut}>
+            <Text style={styles.txtBtn}>Logout</Text>
+        </TouchableOpacity>
+    </View>
+      );
+    // return (
+    //   <TodoApp/>
+    // );
   } // end of render
 } // end of class
 

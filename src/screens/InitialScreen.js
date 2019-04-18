@@ -20,7 +20,7 @@ class InitialScreen extends Component{
       const {type, token, data} = await signInWithFacebook();
   
       // sign user in on gepu
-      this.props.signInOnDatabase(token,data).then(({exist, db_token}) => {
+      this.props.signInOnDatabase(token, data).then(({exist, db_token}) => {
           // when a resolve is issued
           console.log(`signInOnDatabase success, exist: ${exist}, db_token: ${db_token}`);
           if (exist)
@@ -29,6 +29,7 @@ class InitialScreen extends Component{
               Actions.Main();
         }).catch((error) => {
             // when a reject is issued
+            console.log('sign in on database error')
             console.log(error)
         });
   }

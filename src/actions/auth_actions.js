@@ -82,8 +82,8 @@ export function signInOnDatabase(token,data) {
         return new Promise((resolve, reject) => {
             // get db token from gepu api
             let user_data = {...data, 'fbtoken':token};
+            console.log('------start database response------');
             getAuthToken(user_data).then((response) => {
-                console.log('------start database response------');
                 const exist= response.data.exist;
                 const db_token= response.data.db_token;
                 // update the user data if it exist in the database
@@ -96,10 +96,11 @@ export function signInOnDatabase(token,data) {
                 dispatch({type: t.LOGGING_IN, exist: exist, user: user_data, db_token: db_token});
                 resolve({exist,db_token}); //TODO:: do need to pass dbtoken?
             }).catch(error => {
-                e = JSON.stringify(error);
+                e = JSON.stringify(error.response);
                 console.log(`error: ${e}`);
                 dispatch({type: t.LOGGED_OUT});
                 reject(e)
+                console.log('------end database response------');
             });
 
         });
