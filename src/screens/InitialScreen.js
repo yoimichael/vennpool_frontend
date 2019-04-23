@@ -15,23 +15,25 @@ import {connect} from 'react-redux';
 import {signInOnDatabase,signInWithFacebook} from '../actions/auth_actions'
 
 class InitialScreen extends Component{
-    onSignInWithFacebook = async () => {
-      // sign user in on fb
-      const {type, token, data} = await signInWithFacebook();
-  
-      // sign user in on gepu
-      this.props.signInOnDatabase(token, data).then(({exist, db_token}) => {
-          // when a resolve is issued
-          console.log(`signInOnDatabase success, exist: ${exist}, db_token: ${db_token}`);
-          if (exist)
-              Actions.Home();
-          else
-              Actions.Main();
-        }).catch((error) => {
-            // when a reject is issued
-            console.log('sign in on database error')
-            console.log(error)
-        });
+  onSignInWithFacebook = async () => {
+    // sign user in on fb
+    const {type, token, data} = await signInWithFacebook();
+
+    // sign user in on gepu
+    this.props.signInOnDatabase(token, data).then(({exist, db_token}) => {
+        // when a resolve is issued
+        console.log(`signInOnDatabase success, exist: ${exist}, db_token: ${db_token}`);
+Actions.Home(); //Temporary (delete later when yang fixes login issue)
+        // if (exist)
+        //     Actions.Home();
+        // else
+        //     Actions.Main();
+    }).catch((error) => {
+          // when a reject is issued
+Actions.Home(); //Temporary (delete later when yang fixes login issue)
+          console.log('sign in on database error')
+          console.log(error)
+      });
   }
 
   static navigationOptions = {

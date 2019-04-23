@@ -51,7 +51,8 @@ export default class extends React.Component {
 
                     <Stack key="Main" initial={this.state.isLoggedIn}>
                         <Scene key="Home" component={HomeScreen} initial={this.state.exist} title="Home" type={ActionConst.REPLACE}/>
-                        <Scene key="CompleteProfile" component={CreateAccountScreen} initial={!this.state.exist} title="Complete Profile" back={false}/>
+                        <Scene key="CompleteProfile" component={CreateAccountScreen} title="Complete Profile" back={false}/>
+                        <Scene key="RideDetailScreen" component={RideDetailScreen} title="Ride Details"/>
                     </Stack>
 
                      <Stack key="Detail">

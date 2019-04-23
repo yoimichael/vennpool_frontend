@@ -1,4 +1,5 @@
 // First landing page upon opening app
+// Status: Still need to fix Logout button
 import React, {Component} from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Dimensions, Animated  } from 'react-native';
 import ResponsiveImage from 'react-native-responsive-image';
@@ -9,7 +10,6 @@ import TodoApp from '../TodoApp';
 
 //actions
 import {signOut} from "../actions/auth_actions";
-
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 
@@ -42,12 +42,10 @@ class HomeScreen extends Component{
     return{
       title: 'RideShare',
       headerLeft: null,
-      headerRight: 
-        <TouchableOpacity 
-          style={styles.logoutBtn} 
-          onPress={this.onSignOut}>
+      headerRight: (
             <Text style={styles.txtBtn}>Logout</Text>
-        </TouchableOpacity>,
+        
+      ),
 
       headerStyle: {
           height: 75,
@@ -61,14 +59,15 @@ class HomeScreen extends Component{
     }
   }
   render() {
-    return (<View>
-
+    return (
+      <View>
         <TouchableOpacity 
           style={styles.logoutBtn} 
           onPress={this.onSignOut}>
             <Text style={styles.txtBtn}>Logout</Text>
         </TouchableOpacity>
-    </View>
+        
+      </View>
       );
     // return (
     //   <TodoApp/>
