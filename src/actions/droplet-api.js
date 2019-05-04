@@ -3,6 +3,7 @@ const API_URL = 'http://178.128.177.5';
 
 // same as sign in
 export function getAuthToken(user){
+    axios.defaults.headers.common['Authorization'] = null;
     const url = `${API_URL}/api/login/`;
     return axios.post(url,user);
 }
@@ -31,11 +32,13 @@ export function updateUser(db_token,user){
 }
 
 export function deleteUser(db_token,user){
+    axios.defaults.headers.common['Authorization'] = "Token " + db_token;
     const url = `${API_URL}/api/user/${user.id}`;
     return axios.delete(url);
 }
 
 export function getGroups(group_ids){
+    axios.defaults.headers.common['Authorization'] = "Token " + db_token;
     const url = `${API_URL}/api/group/`;
     return axios.get(url).then(response => response.data);
 }

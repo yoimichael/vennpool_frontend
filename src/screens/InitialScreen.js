@@ -13,6 +13,7 @@ import {Actions} from 'react-native-router-flux'
 import {connect} from 'react-redux';
 //actions
 import {signInOnDatabase,signInWithFacebook} from '../actions/auth_actions'
+import { ACTION_HARD_KEYBOARD_SETTINGS } from 'expo/build/IntentLauncherAndroid/IntentLauncherAndroid';
 
 class InitialScreen extends Component{
   onSignInWithFacebook = async () => {
@@ -22,17 +23,17 @@ class InitialScreen extends Component{
     // sign user in on gepu
     this.props.signInOnDatabase(token, data).then(({exist, db_token}) => {
         // when a resolve is issued
-        console.log(`signInOnDatabase success, exist: ${exist}, db_token: ${db_token}`);
-Actions.Home(); //Temporary (delete later when yang fixes login issue)
-        // if (exist)
-        //     Actions.Home();
-        // else
-        //     Actions.Main();
+        console.log(`signInOnDatabase success, exist: ${exist}, db_token: ${db_token}`);        
+        if (exist)
+          Actions.Home();
+        else
+          Actions.CompleteProfile();
     }).catch((error) => {
           // when a reject is issued
-Actions.Home(); //TODO :Temporary (delete later when yang fixes login issue)
-          console.log('sign in on database error')
-          console.log(error)
+// Actions.Home(); //TODO :Temporary (delete later when yang fixes login issue)
+          alert('sign in on database error');
+          console.log(error.data);
+          
       });
   }
 

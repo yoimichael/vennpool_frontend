@@ -30,7 +30,7 @@ const signInWithFacebook = async() => {
             // store the data in local storage
             try{
                 await AsyncStorage.setItem('fbtoken', token)
-                Alert.alert('Logged in!', `Hi ${data.name}!`);
+                console.log('Logged in!', `Hi ${data.name}!`);
 
                 // change the id attributes to fb_id
                 const fb_id = data.id;
@@ -87,6 +87,8 @@ export function signInOnDatabase(token,data) {
         return new Promise((resolve, reject) => {
             // get db token from gepu api
             let user_data = {...data, 'fbtoken':token};
+            console.log(`User data sent to db: ${JSON.stringify(user_data)}`);
+            
             console.log('------start database response------');
             getAuthToken(user_data).then((response) => {
                 const exist= response.data.exist;
@@ -94,9 +96,7 @@ export function signInOnDatabase(token,data) {
                 // update the user data if it exist in the database
                 user_data = (exist) ? response.data.user: user_data;
                 // console.log(`database response: ${JSON.stringify(response)}`);
-                console.log(`exist: ${exist}`);
-                console.log(`db_token: ${db_token}`);
-                console.log(`user_data: ${JSON.stringify(user_data)}`);
+                console.log(`exist: ${exist}`+`\ndb_token: ${db_token}`+`\nuser_data: ${JSON.stringify(user_data)}`);
                 console.log('------end database response------');
                 dispatch({type: t.LOGGING_IN, exist: exist, user: user_data, db_token: db_token});
                 resolve({exist,db_token}); //TODO:: do need to pass dbtoken?

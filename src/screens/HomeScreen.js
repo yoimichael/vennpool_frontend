@@ -14,6 +14,12 @@ import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 
 class HomeScreen extends Component{
+  onTest = async() => {
+    console.log("on test trigered");
+    
+    // Actions.Auth(); 
+  }
+
   onSignOutSuccess(){
       console.log("log out success");
       Actions.reset("Auth");
@@ -40,11 +46,14 @@ class HomeScreen extends Component{
   }
   static navigationOptions = ({navigation}) => {
     return{
-      title: 'RideShare',
+      title: 'Feed',
       headerLeft: null,
       headerRight: (
-            <Text style={styles.txtBtn}>Logout</Text>
-        
+        <TouchableOpacity 
+          style={styles.logoutBtn} 
+          onPress={() => {Actions.Welcome();}}>
+            <Text style={styles.txtBtn}>My Rides</Text>
+        </TouchableOpacity>
       ),
 
       headerStyle: {
@@ -58,6 +67,8 @@ class HomeScreen extends Component{
       gesturesEnabled: false // Check if it breaks the app
     }
   }
+
+  
   render() {
     return (
       <View>

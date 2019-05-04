@@ -26,7 +26,7 @@ class CreateAccountScreen extends Component{
     const user_data = {
       phone: this.state.phone,
       name : this.props.user['name'],
-      fb_id : this.props.user['fb_id'],
+      fb_id : this.props.user['id'],
       fbtoken : this.props.user['fbtoken'],
       car_info : this.state.carModel + '|' + this.state.carMake + '|' + this.state.carColor,
     };

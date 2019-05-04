@@ -2,15 +2,16 @@
 import React from 'react';
 import { Scene, Router, ActionConst, Stack, Modal, Tabs } from 'react-native-router-flux';
 
-
+// Total of 7 Screens
 // Implemented
 import InitialScreen from './src/screens/InitialScreen';  //welcome
 import CreateAccountScreen from './src/screens/CreateAccountScreen';  //comlpeteprofile 
 import HomeScreen from './src/screens/HomeScreen';
 // Not Implemented
 import RideDetailScreen from './src/screens/RideDetailScreen';
-//import OfferRideScreen from './src/screens/OfferRideScreen';
-//import EventDetailScreen from './src/screens/EventDetailScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
+import OfferRideScreen from './src/screens/OfferRideScreen';
+import MyRidesScreen from './src/screens/MyRidesScreen';
 
 //Import Store, actions
 import store from './src/store'
@@ -29,7 +30,7 @@ export default class extends React.Component {
     }
 
     componentDidMount() {
-        let _this = this;
+        var _this = this;
         console.log("-----start redux state-----");
         console.log(store.getState());
         console.log("-----end redux state-----");
@@ -45,18 +46,17 @@ export default class extends React.Component {
                        navigationBarStyle={{backgroundColor: "#fff"}}
                        titleStyle={navTitleStyle}
                        backButtonTintColor={color.black}>
-                    <Stack key="Auth" initial={!this.state.isLoggedIn}>
+                    <Stack key="Auth" initial={!this.state.isLoggedIn && this.state.isReady}>
                         <Scene key="Welcome" component={InitialScreen} title="" initial={true} hideNavBar/>
                     </Stack>
 
-                    <Stack key="Main" initial={this.state.isLoggedIn}>
-                        <Scene key="Home" component={HomeScreen} initial={this.state.exist} title="Home" type={ActionConst.REPLACE}/>
-                        <Scene key="CompleteProfile" component={CreateAccountScreen} title="Complete Profile" back={false}/>
-                        <Scene key="RideDetailScreen" component={RideDetailScreen} title="Ride Details"/>
+                    <Stack key="Main" initial={this.state.isLoggedIn && this.state.isReady} panHandlers={null} >
+                        <Scene key="Home" component={HomeScreen} title="Home" type={ActionConst.REPLACE}/>
+                        <Scene key="CompleteProfile" initial={!this.state.exist} component={CreateAccountScreen} title="Complete Profile" back={false}/>
                     </Stack>
 
                      <Stack key="Detail">
-                        <Scene key="RideDetail" component={RideDetailScreen} title="Ride Detail" type={ActionConst.REPLACE}/>
+                        <Scene key="RideDetail" component={RideDetailScreen} title="Ride Detail" />
                     </Stack>
                 </Scene>
             </Router>
