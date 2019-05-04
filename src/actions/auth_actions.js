@@ -31,6 +31,11 @@ const signInWithFacebook = async() => {
             try{
                 await AsyncStorage.setItem('fbtoken', token)
                 Alert.alert('Logged in!', `Hi ${data.name}!`);
+
+                // change the id attributes to fb_id
+                const fb_id = data.id;
+                delete data.id;
+                data.fb_id = fb_id;
                 return {type, token, data};
             } catch ({message}){
                 Alert.alert(`AsyncStorage Error: ${message}`)

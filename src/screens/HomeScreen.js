@@ -1,7 +1,7 @@
 // First landing page upon opening app
 // Status: Still need to fix Logout button
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Dimensions, Animated  } from 'react-native';
+import { StyleSheet, Alert, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Dimensions, Animated  } from 'react-native';
 import ResponsiveImage from 'react-native-responsive-image';
 import { Button, ThemeProvider } from 'react-native-elements';
 import styles from '../styles/HomeScreenStyles';
@@ -19,8 +19,8 @@ class HomeScreen extends Component{
       Actions.reset("Auth");
   }
   onSignOutError(message){
-      console.log("log out error" + message);
-      Alert.alert('Oops!', message);
+      console.log(`log out error: ${message}`);
+      Alert.alert('Log out error.');
   }
   onSignOut = () => {
       console.log("Trying to log out.")

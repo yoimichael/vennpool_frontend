@@ -16,7 +16,7 @@ export function createUser(db_token,user){
 export function removeAuthToken(db_token,fb_id){
     axios.defaults.headers.common['Authorization'] = "Token " + db_token;
     const url = `${API_URL}/api/logout/`;
-    return axios.post(url,{id: fb_id, db_token: db_token});
+    return axios.post(url,{fb_id: fb_id, db_token: db_token});
 }
 
 export function getUser(db_token,userid){

@@ -30,7 +30,7 @@ Actions.Home(); //Temporary (delete later when yang fixes login issue)
         //     Actions.Main();
     }).catch((error) => {
           // when a reject is issued
-Actions.Home(); //Temporary (delete later when yang fixes login issue)
+Actions.Home(); //TODO :Temporary (delete later when yang fixes login issue)
           console.log('sign in on database error')
           console.log(error)
       });
