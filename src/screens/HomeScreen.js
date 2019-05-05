@@ -9,7 +9,6 @@ import EventCard from '../components/EventCard';
 import TodoApp from '../TodoApp';
 
 //actions
-import {signOut} from "../actions/auth_actions";
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 
@@ -20,23 +19,6 @@ class HomeScreen extends Component{
     // Actions.Auth(); 
   }
 
-  onSignOutSuccess(){
-      console.log("log out success");
-      Actions.reset("Auth");
-  }
-  onSignOutError(message){
-      console.log(`log out error: ${message}`);
-      Alert.alert('Log out error.');
-  }
-  onSignOut = () => {
-      console.log("Trying to log out.")
-      this.props.signOut(
-          this.props.db_token,
-          this.props.user['fb_id'],
-          this.onSignOutSuccess,
-          this.onSignOutError
-      );
-  }
   constructor(props){
     super(props);
     this.state = {
@@ -47,21 +29,28 @@ class HomeScreen extends Component{
   static navigationOptions = ({navigation}) => {
     return{
       title: 'Feed',
-      headerLeft: null,
+      headerLeft: (
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={()=>{Actions.Profile();}}>
+            <Text style={styles.txtBtn}>Profile</Text>
+        </TouchableOpacity>
+      )
+      ,
       headerRight: (
         <TouchableOpacity 
-          style={styles.logoutBtn} 
-          onPress={() => {Actions.Welcome();}}>
+          style={styles.btn} 
+          onPress={() => {Actions.MyRides();}}>
             <Text style={styles.txtBtn}>My Rides</Text>
         </TouchableOpacity>
       ),
-
       headerStyle: {
-          height: 75,
-          backgroundColor: '#009ECE',
+        height: 75,
+        backgroundColor: '#D86512',
       },
       headerTintColor: 'white',
       headerTitleStyle:{
+        fontSize: 30,
         fontWeight: 'bold'
       },
       gesturesEnabled: false // Check if it breaks the app
@@ -72,11 +61,7 @@ class HomeScreen extends Component{
   render() {
     return (
       <View>
-        <TouchableOpacity 
-          style={styles.logoutBtn} 
-          onPress={this.onSignOut}>
-            <Text style={styles.txtBtn}>Logout</Text>
-        </TouchableOpacity>
+        <EventCard/>
         
       </View>
       );
@@ -93,4 +78,4 @@ function mapStateToProps(state) {
 }
 
 // TODO:: more dispatch functions
-export default connect(mapStateToProps, {signOut, })(HomeScreen);
+export default connect(mapStateToProps, {})(HomeScreen);

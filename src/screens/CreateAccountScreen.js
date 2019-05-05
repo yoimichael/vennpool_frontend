@@ -1,31 +1,22 @@
 // First landing page upon opening app
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Dimensions, Animated  } from 'react-native';
-import ResponsiveImage from 'react-native-responsive-image';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Dimensions, Animated, Keyboard, KeyboardAvoidingView  } from 'react-native';
 import { Button, ThemeProvider } from 'react-native-elements';
-import styles from '../styles/CreateAccountStyles';
-
+import styles from '../styles/CreateAccountStyles.js';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { createUserOnDatabase }  from '../actions/auth_actions'
 
-// Required: name
-// Optional: picture
-// Optional: carColor
-// Optional: carMake
-// Optional: carModel
-// Optional: phone
-
 class CreateAccountScreen extends Component{
-
-  onSubmit(data) {
+ onSubmit(data) {
     // this.setState({error: error}); //clear out error messages
 
     console.log(`user: ${this.props.user}`);
     // reorganize the data to to fit the database model
     const user_data = {
       phone: this.state.phone,
-      name : this.props.user['name'],
+      name : this.state.name,
       fb_id : this.props.user['fb_id'],
       fbtoken : this.props.user['fbtoken'],
       car_info : this.state.carModel + '|' + this.state.carMake + '|' + this.state.carColor,
@@ -34,15 +25,12 @@ class CreateAccountScreen extends Component{
     // create user on redux and gepu db
     this.props.createUserOnDatabase(this.props.db_token, user_data, this.onSuccess, this.onError);
   }
-
   onSuccess() {
     // if form successfully submits, go to home page
     Actions.Home()
   }
-
   onError(error) {
     console.log(`FORM error: ${error}`);
-
     //this.setState({error: this.state.error});
   }
 
@@ -50,10 +38,11 @@ class CreateAccountScreen extends Component{
     title: 'Create Account',
     headerStyle: {
       height: 75,
-      backgroundColor: '#FAEBD7',
+      backgroundColor: '#D86512',
     },
-    headerTintColor: 'black',
+    headerTintColor: 'white',
     headerTitleStyle:{
+      fontSize: 20,
       fontWeight: 'bold'
     }
   };
@@ -61,125 +50,98 @@ class CreateAccountScreen extends Component{
   constructor(props){
     super(props);
     this.state = {
-      name: '',
+      ...this.props.user,
+      db_token: this.props.db_token,
       carColor: '',
       carMake: '',
       carModel: '',
       phone: '',
       clicked: false
     }
+    
     tag: null
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.onError = this.onError.bind(this);
-
   }
+
+
   render() {
-    // async onSubmit(){
-    //  Manage input entry validation and authentication
-    //}
     return (
       <View style={styles.container}>
-        <View style={styles.containerTop}>
-          <ResponsiveImage
-            style={styles.img}
-            source={require('../../assets/profile.png')}
-          />
-        </View>
-        <View style={styles.containerBottom}>
-          <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Name: </Text>
-            <View style={styles.spacer}/>   
+        <KeyboardAwareScrollView>
+          <View style={styles.container}>
+            <Image style={styles.img} source={require('../../assets/profile.png')}/>
+          </View>
+                
+          <View style={styles.container}> 
+            <Text style={styles.txtTitle}>Profile Info</Text>
             <TextInput
-              style={styles.txtInput}
+              style={styles.txt}
               onChangeText={(name) => this.setState({name})}
               keyboardType='default'
               value={this.state.name}
-              placeholder='Name'
+              placeholder={"First Name Last Name"}
               placeholderTextColor='gray'
               borderBottomColor='gray'
               borderBottomWidth={1}
             />
-          </View>
-
-
-          <View style={styles.spacer}/>
-
-          <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Car Color: </Text>
-            <View style={styles.spacer}/> 
+            <Text style={styles.txtExtra}>(Only shared to people in the same ride)</Text>
             <TextInput
-              style={styles.txtInput}
-              onChangeText={(carColor) => this.setState({carColor})}
-              keyboardType='default'
-              value={this.state.carColor}
-              placeholder='Silver'
-              placeholderTextColor='gray'
-              borderBottomColor='gray'
-              borderBottomWidth={1}
-            />
-          </View>
-
-          <View style={styles.spacer}/>   
-
-          <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Car Make: </Text>
-            <View style={styles.spacer}/>      
-            <TextInput
-              style={styles.txtInput}
-              onChangeText={(carMake) => this.setState({carMake})}
-              keyboardType='default'
-              value={this.state.carMake}
-              placeholder='Hyundai'
-              placeholderTextColor='gray'
-              borderBottomColor='gray'
-              borderBottomWidth={1}
-            />
-          </View>
-          
-          <View style={styles.spacer}/>   
-
-          <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Car Model: </Text>
-            <View style={styles.verticalSpacer}/>      
-            <TextInput
-              style={styles.txtInput}
-              onChangeText={(carModel) => this.setState({carModel})}
-              keyboardType='default'
-              value={this.state.carModel}
-              placeholder='Sonata'
-              placeholderTextColor='gray'
-              borderBottomColor='gray'
-              borderBottomWidth={1}
-            />
-          </View>
-
-          <View style={styles.spacer}/>   
-
-          <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Phone: </Text>
-            <View style={styles.spacer}/>      
-            <TextInput
-              style={styles.txtInput}
+              style={styles.txt}
               onChangeText={(phone) => this.setState({phone})}
               keyboardType='default'
               value={this.state.phone}
-              placeholder='(xxx) - xxx - xxxxx'
+              placeholder={"Enter your Phone Number"}
               placeholderTextColor='gray'
               borderBottomColor='gray'
               borderBottomWidth={1}
-            />
+            />        
+          </View>
+
+          <View style={styles.container}>
+            <Text style={styles.txtTitle}>Car Info</Text>
+            <TextInput
+              style={styles.txt}
+              onChangeText={(carModel) => this.setState({carModel})}
+              keyboardType='default'
+              value={this.state.carModel}
+              placeholder={"Enter your Car Model (i.e. Honda)"}
+              placeholderTextColor='gray'
+              borderBottomColor='gray'
+              borderBottomWidth={1}
+            />   
+            <TextInput
+              style={styles.txt}
+              onChangeText={(carMake) => this.setState({carMake})}
+              keyboardType='default'
+              value={this.state.carMake}
+              placeholder={"Enter your Car Make (i.e. Civic)"}
+              placeholderTextColor='gray'
+              borderBottomColor='gray'
+              borderBottomWidth={1}
+            />             
+            <TextInput
+              style={styles.txt}
+              onChangeText={(carColor) => this.setState({carColor})}
+              keyboardType='default'
+              value={this.state.carColor}
+              placeholder={"Enter your Car Color (i.e. Silver)"}
+              placeholderTextColor='gray'
+              borderBottomColor='gray'
+              borderBottomWidth={1}
+            />   
           </View>
 
           <View style={styles.container}>
             <TouchableOpacity 
-              style={styles.btn} 
+              style={styles.submitBtn} 
               onPress={this.onSubmit}>
                 <Text style={styles.txtBtn}>Submit</Text>
             </TouchableOpacity>
           </View>
-        </View>       
+        </KeyboardAwareScrollView>
       </View>
     );
   } // end of render
@@ -188,7 +150,7 @@ class CreateAccountScreen extends Component{
 // give db token from redux to the component
 function mapStateToProps(state) {
   const { db_token,user } = state;
-  return { db_token: state['auth']['db_token'], user: state['auth']['user'] }
+  return {db_token: state['auth']['db_token'], user: state['auth']['user']}
 }
 
 export default connect(mapStateToProps, { createUserOnDatabase })(CreateAccountScreen);

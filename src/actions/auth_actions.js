@@ -6,6 +6,10 @@ import {Facebook} from 'expo';
 import * as c from "./constants";
 import {getAuthToken,createUser,removeAuthToken} from './droplet-api';
 
+const getFacebookUserEvents = async() => {
+    const response = await fetch(`https://graph.facebook.com/me/events?access_token=${token}`);
+}
+
 const signInWithFacebook = async() => {
     try{
         // sign user in, get user token

@@ -1,8 +1,6 @@
 import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Animated  } from 'react-native';
 
 const styles = StyleSheet.create({
-
-
   // Used for input box styling
   container: {
     flexDirection: 'column',
@@ -17,20 +15,14 @@ const styles = StyleSheet.create({
   // For input styling (
   txtBtn:{
     textAlign: 'center',
-    fontSize: 15,
+    fontSize: 20,
     color: 'white',
+    textShadowColor: 'black',
+    textShadowOffset: {width: 3, height:3},
+    textShadowRadius: 5,
   },
-  logoutBtn: {
+  btn: {
     width: 100
-  },
-  txtInput: {
-    height: 30,
-    width: Dimensions.get('window').width,
-    flex: .08,
-    borderColor: 'gray',
-    borderWidth: 1,
-    textAlign: 'center',
-    margin: 5
   },
 });
 
