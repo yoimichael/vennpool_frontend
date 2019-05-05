@@ -6,6 +6,29 @@ import {Facebook} from 'expo';
 import * as c from "./constants";
 import {getAuthToken,createUser,removeAuthToken} from './droplet-api';
 
+const getFacebookEvents = async(fb_id, fbtoken) => {
+    const since = new Date().toISOString().split('T')[0];
+    console.log('------start fb events------');
+    const response = await fetch(`https://graph.facebook.com/${fb_id}/events?access_token=${token}&since=${since}&limit=25`);
+    try{
+        response.data.forEach((event) => {
+            const description = event.description;
+            const start_time = event.start_time;
+            const name = event.name;
+            const address = `${event.place.name} (${event.place.street})`;
+            const rsvp = event.rsvp_status;
+            const id = event.id;
+            console.log(`New Event:${description}\n${start_time}\n${name}\n${address}\n${rsvp}\n${id}`);
+        });
+    }
+    catch({message}){
+        Alert.alert(`AsyncStorage Error: ${message}`)
+                return {type:null, token:null, data:null}
+    }
+
+    console.log('------end fb events------');
+}
+
 const signInWithFacebook = async() => {
     try{
         // sign user in, get user token
