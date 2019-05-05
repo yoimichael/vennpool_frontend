@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
 
   // For input styling (
-  submitBtn:{
+  signoutBtn:{
     width: 90,
     height:30,
     borderWidth: 1,

@@ -27,12 +27,12 @@ class InitialScreen extends Component{
         if (exist)
           Actions.Home();
         else
-          Actions.CompleteProfile();
+          Actions.CreateAccount();
     }).catch((error) => {
           // when a reject is issued
 // Actions.Home(); //TODO :Temporary (delete later when yang fixes login issue)
           alert('sign in on database error');
-          console.log(error.data);
+          console.log(error);
           
       });
   }

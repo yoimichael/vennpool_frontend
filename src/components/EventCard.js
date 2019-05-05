@@ -27,12 +27,12 @@ class EventCard extends Component{
           renderItem={( {item} ) =>
             <TouchableOpacity 
               onPress={this.GetSectionListItem.bind(this, 
-                `Ride Details: \n\n` + 
                 `Driver: ` + item.admin + `\n` + 
+                `Available Seats: ` + item.seats + `\n` +
                 `Pickup Location Preference: ` + item.fromAddr + `\n` + 
                 `Destination Location: ` + item.toAddr + `\n` +
-                `Departure Time: ` + item.time + `\n` +
-                `Available Seats: ` + item.seats + `\n`
+                `Departure Time: ` + item.time + `\n` 
+                
                 )}>
                 <View style={styles.itemContainer}>
                   <View style={styles.subCardHeaderContainer}>
