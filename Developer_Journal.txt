@@ -187,3 +187,40 @@ IMPLEMENTATION:
 #     Going = rsvp: attending
 #     Maybe = rsvp: unsure
 #     Can't Go = (doesn't show up event at all)
+
+
+
+# Day 12 and 13(4/16/19 and 4/18/19)
+# Yang and Martin
+# Connected Yang's progress on backend and Martin's progress on frontend.
+# Gabriel worked on getting familiar with react.js
+
+
+
+# Day 14 (4/23/19)
+# Yang, Martin, and Kimo
+# Updated development plan; Gabriel is officially part of team.
+# Goal: Revisit wirefra me and workon screens. Then look into input validation.
+
+
+
+# Day 15 (5/3/19)
+# Yang, Martin, and Gabriel (on Messenger Voice)
+#
+# Yang working on Backend
+#
+# Martin and Gabriel working on Frontend. 
+# Finished wireframe redesign on figma.
+
+
+
+# Day 16 (5/4/19)
+# Martin and Yang
+# Login Workflow works! CreateAccountScreen and ProfileScreen is good.
+#
+# TODO: 
+#   1. EventCard and RideCard components at HomeScreen
+#   2. OfferRideScreen
+#   3. RideDetailsScreen
+#   4. MyRideScreen
+#  Continue on Tuesday at 2pm-11pm.
