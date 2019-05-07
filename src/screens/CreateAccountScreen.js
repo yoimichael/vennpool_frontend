@@ -155,8 +155,7 @@ class CreateAccountScreen extends Component{
 } // end of class
 
 // give db token from redux to the component
-function mapStateToProps(state) {
-  const { db_token,user } = state;
+function mapStateToProps(state) {  
   return {db_token: state['auth']['db_token'], user: state['auth']['user']}
 }
 
