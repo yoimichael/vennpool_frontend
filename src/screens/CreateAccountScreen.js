@@ -60,6 +60,7 @@ class CreateAccountScreen extends Component{
       photoUrl: ""
     }
     
+    // get user profile photo, if it doesn't exist, user Martin photo
     if (this.state.fb_id)
       this.state.photoSource = {uri: `https://graph.facebook.com/${this.state.fb_id}/picture?type=large`};
     else

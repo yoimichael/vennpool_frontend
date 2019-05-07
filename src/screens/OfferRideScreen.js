@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Dimensions, Animated  } from 'react-native';
 import ResponsiveImage from 'react-native-responsive-image';
 import { Button, ThemeProvider } from 'react-native-elements';
-import styles from '../styles/CreateAccountStyles';
+import styles from '../styles/OfferRideStyles';
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -16,7 +16,7 @@ import { createUserOnDatabase }  from '../actions/auth_actions'
 // Optional: carModel
 // Optional: phone
 
-class CreateAccountScreen extends Component{
+class OfferRideScreen extends Component{
 
   onSubmit(data) {
     // this.setState({error: error}); //clear out error messages
@@ -82,46 +82,35 @@ class CreateAccountScreen extends Component{
     return (
       <View style={styles.container}>
         <View style={styles.containerTop}>
-          <ResponsiveImage
-            style={styles.img}
-            source={require('../../assets/profile.png')}
-          />
+          
         </View>
         <View style={styles.containerBottom}>
-          <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Name: </Text>
-            <View style={styles.spacer}/>   
+
+            <Text style={styles.text}>Please fill in the following ride details:</Text>
+            <Text style={styles.text}>Meetup Location</Text>
             <TextInput
               style={styles.txtInput}
               onChangeText={(name) => this.setState({name})}
               keyboardType='default'
               value={this.state.name}
-              placeholder='Name'
+              placeholder='e.g. Gilman Drive'
               placeholderTextColor='gray'
               borderBottomColor='gray'
               borderBottomWidth={1}
             />
-          </View>
 
-
-          <View style={styles.spacer}/>
-
-          <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Car Color: </Text>
-            <View style={styles.spacer}/> 
+            <Text style={styles.text}>Departure Time</Text>
+            // SCROLLWHEEL BUTTON
             <TextInput
               style={styles.txtInput}
               onChangeText={(carColor) => this.setState({carColor})}
               keyboardType='default'
               value={this.state.carColor}
-              placeholder='Silver'
+              placeholder='Departure Time'
               placeholderTextColor='gray'
               borderBottomColor='gray'
               borderBottomWidth={1}
-            />
-          </View>
-
-          <View style={styles.spacer}/>   
+            /> 
 
           <View style={styles.inputRow}>
             <Text style={styles.inputTitle}>Car Make: </Text>
@@ -191,4 +180,4 @@ function mapStateToProps(state) {
   return { db_token: state['auth']['db_token'], user: state['auth']['user'] }
 }
 
-export default connect(mapStateToProps, { createUserOnDatabase })(CreateAccountScreen);
+export default connect(mapStateToProps, { createUserOnDatabase })(OfferRideScreen);

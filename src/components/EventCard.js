@@ -5,10 +5,23 @@ import {sectionListData} from '../data/sectionListData';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 class SectionHeader extends Component {
+  onTest = async() => {
+    console.log("on test trigered");
+    
+    // Actions.Auth(); 
+  }
+
   render() {
     return (
       <View style={styles.header}>
           <Text style={styles.headerTxt}>{this.props.section.title}</Text>
+          <View style={styles.container}>
+            <TouchableOpacity 
+              style={styles.signoutBtn} 
+              onPress={this.onTest}>
+                <Text style={styles.txtBtn}>Share</Text>
+            </TouchableOpacity>
+          </View>
       </View>
     );
   }
