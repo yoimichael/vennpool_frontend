@@ -42,20 +42,23 @@ export default class extends React.Component {
     render() {
         return (
             <Router>
-                <Scene key="root" hideNavBar
+                <Scene key="root" initial={this.state.isReady} hideNavBar
                        navigationBarStyle={{backgroundColor: "#fff"}}
                        titleStyle={navTitleStyle}
                        backButtonTintColor={color.black}>
-                    <Stack key="Auth" initial={this.state.isReady}> 
-                        <Scene key="Welcome" component={InitialScreen} title="" hideNavBar/>
-                    </Stack>
 
-                    <Stack key="Main" initial={this.state.isLoggedIn && this.state.isReady} panHandlers={null} >
-                        <Scene key="CreateAccount" initial={!this.state.exist} component={CreateAccountScreen} title="Complete Profile" back={false}/>                        
-                        <Scene key="Home" component={HomeScreen} title="Home" type={ActionConst.REPLACE}/>
-                        <Scene key="Profile" component={ProfileScreen} title="Profile"/>
-                        <Scene key="MyRides" component={MyRidesScreen} title="MyRides"/>
-                    </Stack>
+                    {/* Auth */}
+                    {/* <Stack key="Auth" initial={!this.state.isLoggedIn}>  */}
+                    <Scene key="Welcome"  initial={!this.state.isLoggedIn} component={InitialScreen} title="" hideNavBar/>
+                    {/* </Stack> */}
+
+                    {/* Main */}
+                    {/* <Stack key="Main" initial={this.state.isLoggedIn} panHandlers={null} > */}
+                    <Scene key="CreateAccount" initial={this.state.isLoggedIn && !this.state.exist} component={CreateAccountScreen} title="Complete Profile" back={false}/>                        
+                    <Scene key="Home" component={HomeScreen} initial={this.state.isLoggedIn && this.state.exist} title="Home" type={ActionConst.REPLACE}/>
+                    <Scene key="Profile" component={ProfileScreen} title="Profile"/>
+                    <Scene key="MyRides" component={MyRidesScreen} title="MyRides"/>
+                    {/* </Stack> */}
 
                      <Stack key="Detail">
                         <Scene key="RideDetail" component={RideDetailScreen} title="Ride Detail" />

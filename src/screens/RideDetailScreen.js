@@ -19,7 +19,7 @@ import { createUserOnDatabase }  from '../actions/auth_actions'
 class CreateAccountScreen extends Component{
   onLogout = async() =>{
     console.log("clicked");
-    Actions.Auth();
+    Actions.Welcome();
   }
 
   static navigationOptions = {

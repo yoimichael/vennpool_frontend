@@ -24,10 +24,14 @@ class InitialScreen extends Component{
     this.props.signInOnDatabase(token, data).then(({exist, db_token}) => {
         // when a resolve is issued
         console.log(`signInOnDatabase success, exist: ${exist}, db_token: ${db_token}`);        
-        if (exist)
+        if (exist){
+          console.log("heading to Home");
           Actions.Home();
-        else
+        }
+        else{
+          console.log("heading to CreateAccount");
           Actions.CreateAccount();
+        }
     }).catch((error) => {
           // when a reject is issued
 // Actions.Home(); //TODO :Temporary (delete later when yang fixes login issue)
