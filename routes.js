@@ -38,7 +38,7 @@ export default class extends React.Component {
             _this.setState({isReady: true, exist, isLoggedIn});
         }));
     }
-
+    
     render() {
         return (
             <Router>
