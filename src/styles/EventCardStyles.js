@@ -3,17 +3,15 @@ import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Animated  } from
 const deviceWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
-
-
   // Used for input box styling
   container:{
     flex: 1,
-    marginTop: 0,
+    flexDirection: 'column',
   },
-  subCardHeaderContainer:{
+  rideCardContainer:{
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
     margin: 10
   },
   subCardTxtContainer:{
@@ -24,41 +22,74 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     flex: 1,
-    width: deviceWidth,
+    width: deviceWidth -40,
     flexDirection: 'column',
-    backgroundColor: 'rgb(98, 197, 184)', 
+    alignItems: 'center',
+    backgroundColor: '#ECAA48', 
+    borderColor: '#ECAA48',
+    borderWidth: 1,
+    borderRadius: 15/2,
     marginBottom: 5
   },
 
   header: {
     flex: 1,
-    backgroundColor: 'rgb(77,120,140)'
+    flexDirection: 'column',
+    backgroundColor: '#D86512',
+    width: deviceWidth-30,
+    borderRadius: 15/2,
+    borderWidth: 1,
+    borderColor:'#D86512',
+    alignSelf: 'center',
+    justifyContent: 'space-around'
+  },
+  headerShare:{
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#D86512',
+    justifyContent: 'center'
+  },
+  linkTxt:{
+    fontSize: 15,
+    fontWeight: 'normal',
+    color: 'white',
+    alignSelf: 'center'
   },
   headerTxt:{
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
     color: 'white',
-    margin: 20
+    alignSelf: 'center'
   },
 
   subCardHeader:{
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'rgb(173, 252, 250)',
+    color: 'black',
   },
   subCardTxt:{
     fontSize: 16,
-    color: 'rgb(173,252, 250)'
+    color: 'black',
   },
 
-  btn: {
-    height: 30,
-    width: 200,
+  btnTxt: {
+    color: 'white',
+    fontSize: 20,
+    alignSelf: 'center',
+    fontWeight: "normal",
+  },
+  btn:{
+    width: 110,
+    height:30,
     borderWidth: 1,
-    borderRadius: 50,
-    backgroundColor: 'orange'
+    borderColor: '#F8B261',
+    backgroundColor: '#F8B261',
+    alignSelf: 'center',
+    shadowOffset:{  width: 1,  height: 1,  },
+    shadowColor: 'black',
+    shadowOpacity: .25,
+    borderRadius: 15/2,
   },
-
 
   SectionListItemStyle: {
     fontSize: 15,

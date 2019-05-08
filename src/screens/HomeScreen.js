@@ -6,6 +6,7 @@ import ResponsiveImage from 'react-native-responsive-image';
 import { Button, ThemeProvider } from 'react-native-elements';
 import styles from '../styles/HomeScreenStyles';
 import EventCard from '../components/EventCard';
+import CarouselView from '../components/CarouselView';
 import TodoApp from '../TodoApp';
 
 //actions
@@ -13,11 +14,7 @@ import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 
 class HomeScreen extends Component{
-  onTest = async() => {
-    console.log("on test trigered");
-    
-    // Actions.Auth(); 
-  }
+
 
   constructor(props){
     super(props);
@@ -60,7 +57,8 @@ class HomeScreen extends Component{
   
   render() {
     return (
-      <View>
+      <View style={styles.container}>
+        <View style={styles.spacer}/>
         <EventCard/>
         
       </View>

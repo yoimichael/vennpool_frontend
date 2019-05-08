@@ -4,7 +4,7 @@ import * as t from './actionTypes';
 import {AsyncStorage,Alert} from 'react-native';
 import {Facebook} from 'expo';
 import * as c from "./constants";
-import {getAuthToken,createUser,removeAuthToken, updateUser} from './droplet-api';
+import {getAuthToken,createUser,removeAuthToken,updateUser} from './droplet-api';
 
 const getFacebookEvents = async(fb_id, fbtoken) => {
     const since = new Date().toISOString().split('T')[0];

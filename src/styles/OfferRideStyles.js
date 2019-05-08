@@ -9,49 +9,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F4ED',
     flex: 1
   },
-  containerText: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   txtTitle:{
     alignSelf: 'center',
     fontSize: 25,
     fontWeight: "bold",
-    marginBottom: 5,
   },
   txt:{
     fontSize: 15,
     fontWeight: "normal",
-    width: 250,
-    height:50,
-    borderWidth: 1,
-    marginBottom: 5,
-    textAlign: 'center',
-    borderColor: '#F8B261',
-    backgroundColor: '#F8B261',
-    shadowOffset:{  width: 1,  height: 1,  },
-    shadowColor: 'black',
-    shadowOpacity: .25,
+    textAlign: 'left',
   },
-  txtExtra:{
-      alignSelf: 'center',
-      fontSize: 10,
-      fontWeight: "normal",
-  },
-
-  img:{
-    marginTop: 10,
-    height: 150,
-    width: 150,
-    borderRadius: 150/2,
-  },
-  containerMain:{
-    flex:1,
-  },
-
   // For input styling (
-  signoutBtn:{
+  submitBtn:{
     width: 90,
     height:30,
     borderWidth: 1,
@@ -62,7 +31,6 @@ const styles = StyleSheet.create({
     shadowOffset:{  width: 1,  height: 1,  },
     shadowColor: 'black',
     shadowOpacity: .25,
-    borderWidth: 1,
     borderRadius: 15/2,
   },
   txtBtn:{

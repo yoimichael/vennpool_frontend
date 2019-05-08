@@ -173,7 +173,7 @@ class ProfileScreen extends Component{
             <TouchableOpacity 
               style={styles.signoutBtn} 
               onPress={this.onUpdateProfile}>
-                <Text style={styles.txtBtn}>Update Profile</Text>
+                <Text style={styles.txtBtn}>Update</Text>
             </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>

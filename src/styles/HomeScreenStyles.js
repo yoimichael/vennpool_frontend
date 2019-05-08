@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   spacer: {
-    flex: .1
+    flex: .025
   },
   // For input styling (
   txtBtn:{

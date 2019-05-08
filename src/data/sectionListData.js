@@ -14,7 +14,8 @@ var sectionListData = [
         willingToDriveBack: false
       }
     ], // end of data
-    title: "TG Expo"
+    title: "TG Expo 2019",
+    share: "https://vennpool.comBZZRvb",
   },
   { 
     data: 
