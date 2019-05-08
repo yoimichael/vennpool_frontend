@@ -5,24 +5,36 @@ import { StyleSheet, Alert, View, Text, TextInput, TouchableOpacity, Image, Scro
 import ResponsiveImage from 'react-native-responsive-image';
 import { Button, ThemeProvider } from 'react-native-elements';
 import styles from '../styles/HomeScreenStyles';
-import EventCard from '../components/EventCard';
+import EventList from '../components/EventList';
 import CarouselView from '../components/CarouselView';
 import TodoApp from '../TodoApp';
 
 //actions
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
+import {getFacebookEvents}  from '../actions/auth_actions'
 
 class HomeScreen extends Component{
 
 
   constructor(props){
     super(props);
+
+    // getFacebookEvents(this.props.user['fb_id'], this.props.user['fbtoken'],limit=2)
+    //   .then((response) => {
+        
+    //     // send response to database
+    //   })
+    //   .catch((message) => {
+    //     //do nothing
+    //   });
+
     this.state = {
       search: '',
     }
     tag: null
   }
+
   static navigationOptions = ({navigation}) => {
     return{
       title: 'Feed',
@@ -59,7 +71,7 @@ class HomeScreen extends Component{
     return (
       <View style={styles.container}>
         <View style={styles.spacer}/>
-        <EventCard/>
+        <EventList/>
         
       </View>
       );

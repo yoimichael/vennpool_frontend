@@ -47,16 +47,12 @@ export default class extends React.Component {
                        titleStyle={navTitleStyle}
                        backButtonTintColor={color.black}>
                     <Scene key="Welcome"  initial={!this.state.isLoggedIn} component={InitialScreen} title="" hideNavBar/>
-
                     <Scene key="CreateAccount" initial={this.state.isLoggedIn && !this.state.exist} component={CreateAccountScreen} title="Complete Profile" back={false}/>                        
                     <Scene key="Home" component={HomeScreen} initial={this.state.isLoggedIn && this.state.exist} title="Home" type={ActionConst.REPLACE}/>
                     <Scene key="Profile" component={ProfileScreen} title="Profile"/>
                     <Scene key="MyRides" component={MyRidesScreen} title="MyRides"/>
                     <Scene key="OfferRide" component={OfferRideScreen} title="OfferRide"/>
-
-                     <Stack key="Detail">
-                        <Scene key="RideDetail" component={RideDetailScreen} title="Ride Detail" />
-                    </Stack>
+                    <Scene key="RideDetail" component={RideDetailScreen} title="Ride Detail" />
                 </Scene>
             </Router>
         )

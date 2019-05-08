@@ -20,15 +20,15 @@ class SectionHeader extends Component {
           </View>
           <View style={styles.headerShare}>
             <TouchableOpacity 
-              style={styles.btn} 
+              style={styles.shareBtn} 
               onPress={this.onTest}>
                 <Text style={styles.btnTxt}>Share</Text>
             </TouchableOpacity>
-            <Text style={styles.linkTxt}>*Link URL*</Text>
+            <Text style={styles.linkTxt}>{this.props.section.share}</Text>
           </View>
           <View style={styles.header}>
             <TouchableOpacity 
-              style={styles.btn} 
+              style={styles.offerBtn} 
               onPress={this.onTest}>
                 <Text style={styles.btnTxt}>Offer A Ride</Text>
             </TouchableOpacity>
@@ -38,7 +38,7 @@ class SectionHeader extends Component {
   }
 }
 
-class EventCard extends Component{
+class EventList extends Component{
   // Shows the SectionList component item click value using Alert
   GetSectionListItem = item => {
     return(Alert.alert(item));
@@ -49,14 +49,7 @@ class EventCard extends Component{
       <View style={styles.container}>
         <SectionList
           renderItem={( {item} ) =>
-            <TouchableOpacity 
-              onPress={this.GetSectionListItem.bind(this, 
-                `Driver: ` + item.admin + `\n` + 
-                `Available Seats: ` + item.seats + `\n` +
-                `Pickup Location Preference: ` + item.fromAddr + `\n` + 
-                `Departure Time: ` + item.time + `\n` 
-                
-                )}>
+            <TouchableOpacity onPress={Actions.RideDetail}>
                 <View style={styles.itemContainer}>
                   <View style={styles.rideCardContainer}>
                     <Text style={styles.subCardHeader}>
@@ -79,11 +72,11 @@ class EventCard extends Component{
             return(<SectionHeader section={section}/>);
           }}
           sections={sectionListData}
-          keyExtractor={(item, index) => item.admin}>
+          keyExtractor={(item, index) => item.id}>
         </SectionList>
       </View> 
     );
   }
 }
 
-export default EventCard;
+export default EventList;

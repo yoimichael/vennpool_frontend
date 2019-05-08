@@ -22,14 +22,15 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     flex: 1,
-    width: deviceWidth -40,
+    width: deviceWidth -60,
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#ECAA48', 
     borderColor: '#ECAA48',
     borderWidth: 1,
     borderRadius: 15/2,
-    marginBottom: 5
+    marginBottom: 5,
+    alignSelf: 'center'
   },
 
   header: {
@@ -41,7 +42,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor:'#D86512',
     alignSelf: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    marginBottom: 10
   },
   headerShare:{
     flex: 1,
@@ -78,8 +80,21 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: "normal",
   },
-  btn:{
-    width: 110,
+  shareBtn:{
+    width: 70,
+    height:30,
+    marginRight: 10,
+    borderWidth: 1,
+    borderColor: '#F8B261',
+    backgroundColor: '#F8B261',
+    alignSelf: 'center',
+    shadowOffset:{  width: 1,  height: 1,  },
+    shadowColor: 'black',
+    shadowOpacity: .25,
+    borderRadius: 15/2,
+  },
+  offerBtn:{
+    width: 120,
     height:30,
     borderWidth: 1,
     borderColor: '#F8B261',

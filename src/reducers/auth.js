@@ -32,7 +32,7 @@ const authReducer = (state = initialState, action) => {
             return {...state, isLoggedIn: true, user:action.user, db_token:action.db_token, exist:action.exist};
 
         case t.LOGGED_OUT:
-            let keys = ['user','fbToken','db_token'];
+            let keys = ['user','fbToken','db_token','last_update'];
             AsyncStorage.multiRemove(keys).then(()=>{
                 console.log('Async: user, dbtoken removed');
             });

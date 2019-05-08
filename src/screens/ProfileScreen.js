@@ -55,7 +55,7 @@ class ProfileScreen extends Component{
     };
     console.log(`submiting: ${JSON.stringify(user_data)}`);
     // create user on redux and gepu db
-    this.props.updateUserOnDatabase(this.props.db_token, user_data, this.onSuccess, this.onError);
+    this.props.updateUserOnDatabase(this.props.db_token, user_data, this.onUpdateSuccess, this.onError);
   }
 
   static navigationOptions = {

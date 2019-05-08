@@ -46,10 +46,6 @@ const styles = StyleSheet.create({
     width: 150,
     borderRadius: 150/2,
   },
-  containerMain:{
-    flex:1,
-  },
-
   // For input styling (
   signoutBtn:{
     width: 90,

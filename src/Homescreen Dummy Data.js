@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView,
 import ResponsiveImage from 'react-native-responsive-image';
 import { Button, ThemeProvider } from 'react-native-elements';
 import styles from '../styles/HomeScreenStyles';
-import EventCard from '../components/EventCard';
+import EventCard from '../components/EventList';
 
 class HomeScreen extends Component{
   static navigationOptions = ({navigation}) => {
@@ -51,7 +51,7 @@ class HomeScreen extends Component{
           borderBottomColor='gray'
           borderBottomWidth={1}
         />        
-        <EventCard/>
+        <EventList/>
       </View>
     );
   } // end of render

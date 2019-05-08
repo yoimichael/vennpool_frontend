@@ -37,6 +37,12 @@ export function deleteUser(db_token,user){
     return axios.delete(url);
 }
 
+export function getPosts(db_token, event_list){
+    axios.defaults.headers.common['Authorization'] = "Token " + db_token;
+    const url = `${API_URL}/api/user/${event_list}`;
+    return axios.get(url);
+}
+
 export function getGroups(group_ids){
     axios.defaults.headers.common['Authorization'] = "Token " + db_token;
     const url = `${API_URL}/api/group/`;
