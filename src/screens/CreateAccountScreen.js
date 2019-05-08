@@ -19,7 +19,7 @@ class CreateAccountScreen extends Component{
       name : this.state.name,
       fb_id : this.props.user['fb_id'],
       fbtoken : this.props.user['fbtoken'],
-      car_info : this.state.carModel + '|' + this.state.carMake + '|' + this.state.carColor,
+      car_info : this.state.carMake + '|' +  this.state.carModel + '|' + this.state.carColor,
     };
     console.log(`submit: ${user_data}`);
     // create user on redux and gepu db
@@ -60,6 +60,7 @@ class CreateAccountScreen extends Component{
       photoUrl: ""
     }
     
+    // get user profile photo, if it doesn't exist, user Martin photo
     if (this.state.fb_id)
       this.state.photoSource = {uri: `https://graph.facebook.com/${this.state.fb_id}/picture?type=large`};
     else
@@ -110,20 +111,20 @@ class CreateAccountScreen extends Component{
             <Text style={styles.txtTitle}>Car Info</Text>
             <TextInput
               style={styles.txt}
-              onChangeText={(carModel) => this.setState({carModel})}
+              onChangeText={(carMake) => this.setState({carMake})}
               keyboardType='default'
-              value={this.state.carModel}
-              placeholder={"Enter your Car Model (i.e. Honda)"}
+              value={this.state.carMake}
+              placeholder={"Enter your Car Make (i.e. Honda)"}
               placeholderTextColor='gray'
               borderBottomColor='gray'
               borderBottomWidth={1}
             />   
             <TextInput
               style={styles.txt}
-              onChangeText={(carMake) => this.setState({carMake})}
+              onChangeText={(carModel) => this.setState({carModel})}
               keyboardType='default'
-              value={this.state.carMake}
-              placeholder={"Enter your Car Make (i.e. Civic)"}
+              value={this.state.carModel}
+              placeholder={"Enter your Car Model (i.e. Civic)"}
               placeholderTextColor='gray'
               borderBottomColor='gray'
               borderBottomWidth={1}

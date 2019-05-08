@@ -4,7 +4,7 @@ import * as t from './actionTypes';
 import {AsyncStorage,Alert} from 'react-native';
 import {Facebook} from 'expo';
 import * as c from "./constants";
-import {getAuthToken,createUser,removeAuthToken} from './droplet-api';
+import {getAuthToken,createUser,removeAuthToken, updateUser} from './droplet-api';
 
 const getFacebookEvents = async(fb_id, fbtoken) => {
     const since = new Date().toISOString().split('T')[0];
@@ -91,6 +91,18 @@ export function signOut(db_token,fb_id,onSuccess,onError) {
     };
 }
 
+export function updateUserOnDatabase(db_token, user_data, onSuccess, onError) {
+    return (dispatch) => {
+        updateUser(db_token,user_data).then((response)=>{
+            // get user's new data (with user id on gepu)
+            const user = response.data;
+            dispatch({type: t.LOGGING_IN, exist: true, user: user, db_token: db_token});
+            onSuccess();
+        }).catch(error => {
+            onError(JSON.stringify(error));
+        })
+    };
+}
 
 export function createUserOnDatabase(db_token, user_data, onSuccess, onError) {
     return (dispatch) => {
@@ -100,7 +112,7 @@ export function createUserOnDatabase(db_token, user_data, onSuccess, onError) {
             dispatch({type: t.LOGGING_IN, exist: true, user: user, db_token: db_token});
             onSuccess();
         }).catch(error => {
-            onError(JSON.stringify(error.response.data));
+            onError(JSON.stringify(error));
         })
     };
 }
