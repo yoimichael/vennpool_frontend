@@ -64,8 +64,6 @@ const styles = StyleSheet.create({
     shadowOpacity: .25,
     borderWidth: 1,
     borderRadius: 15/2,
-
-
   },
   txtBtn:{
     color: 'white',

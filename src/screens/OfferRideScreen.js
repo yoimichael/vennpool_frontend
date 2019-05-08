@@ -1,174 +1,121 @@
 // First landing page upon opening app
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Dimensions, Animated  } from 'react-native';
+import { Alert, StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Dimensions, Animated  } from 'react-native';
 import ResponsiveImage from 'react-native-responsive-image';
 import { Button, ThemeProvider } from 'react-native-elements';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from '../styles/OfferRideStyles';
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { createUserOnDatabase }  from '../actions/auth_actions'
+
+import {signOut,updateUserOnDatabase} from "../actions/auth_actions";
 
 // Required: name
 // Optional: picture
 // Optional: carColor
 // Optional: carMake
 // Optional: carModel
-// Optional: phone
+// Optional: phone 
 
 class OfferRideScreen extends Component{
 
-  onSubmit(data) {
-    // this.setState({error: error}); //clear out error messages
-
-    console.log(`user: ${this.props.user}`);
-    // reorganize the data to to fit the database model
-    const user_data = {
-      phone: this.state.phone,
-      name : this.props.user['name'],
-      fb_id : this.props.user['id'],
-      fbtoken : this.props.user['fbtoken'],
-      car_info : this.state.carModel + '|' + this.state.carMake + '|' + this.state.carColor,
-    };
-    console.log(`submit: ${user_data}`);
-    // create user on redux and gepu db
-    this.props.createUserOnDatabase(this.props.db_token, user_data, this.onSuccess, this.onError);
-  }
-
-  onSuccess() {
-    // if form successfully submits, go to home page
-    Actions.Home()
-  }
-
-  onError(error) {
-    console.log(`FORM error: ${error}`);
-
-    //this.setState({error: this.state.error});
+  onSubmit(){
+    console.log("CLICKED");
   }
 
   static navigationOptions = {
-    title: 'Create Account',
+    title: 'Offer a Ride',
     headerStyle: {
       height: 75,
-      backgroundColor: '#FAEBD7',
+      backgroundColor: '#D86512',
     },
-    headerTintColor: 'black',
+    headerTintColor: 'white',
     headerTitleStyle:{
+      fontSize: 20,
       fontWeight: 'bold'
     }
   };
 
   constructor(props){
     super(props);
+    // name: this.props.user['name'], //'' or user_data.name(?)
+    const car_info = this.props.user.car_info.split('|');
+    
+    const phone = (this.props.user.phone != null) ? this.props.user.phone : "";
+
     this.state = {
-      name: '',
-      carColor: '',
-      carMake: '',
-      carModel: '',
-      phone: '',
+      ...this.props.user,
+      carMake: car_info[0],       //''
+      carModel: car_info[1],       //''
+      carColor: car_info[2],       //''
+      phone: phone,    //''
+      seatsAvailable: '4',
       clicked: false
     }
-    tag: null
-
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onSuccess = this.onSuccess.bind(this);
-    this.onError = this.onError.bind(this);
-
+    if (this.state.fb_id)
+      this.state.photoSource = {uri: `https://graph.facebook.com/${this.state.fb_id}/picture?type=large`};
+    else
+      this.state.photoSource = require('../../assets/profile.png');
   }
+
   render() {
-    // async onSubmit(){
-    //  Manage input entry validation and authentication
-    //}
     return (
       <View style={styles.container}>
-        <View style={styles.containerTop}>
-          
-        </View>
-        <View style={styles.containerBottom}>
+        <KeyboardAwareScrollView>
+         
+                
+          <View style={styles.container}> 
+            <Text style={styles.txt}>Your Info</Text>
+            <Text style={styles.txtTitle}>{this.state.name}</Text>
+            <Text style={styles.txt}>Silver Hyundai Sonata</Text>
+            <Text style={styles.txt}>Phone #: {this.state.phone}</Text>
+            <Text style={styles.txt}>Seats Available: {this.state.seatsAvailable}</Text>
+            <Text style={styles.txtTitle}>Meetup Location</Text>
+          </View>
 
-            <Text style={styles.text}>Please fill in the following ride details:</Text>
-            <Text style={styles.text}>Meetup Location</Text>
+          <View style={styles.container}>
+            <Text style={styles.txtTitle}>Car Info</Text>
             <TextInput
-              style={styles.txtInput}
-              onChangeText={(name) => this.setState({name})}
-              keyboardType='default'
-              value={this.state.name}
-              placeholder='e.g. Gilman Drive'
-              placeholderTextColor='gray'
-              borderBottomColor='gray'
-              borderBottomWidth={1}
-            />
-
-            <Text style={styles.text}>Departure Time</Text>
-            // SCROLLWHEEL BUTTON
-            <TextInput
-              style={styles.txtInput}
-              onChangeText={(carColor) => this.setState({carColor})}
-              keyboardType='default'
-              value={this.state.carColor}
-              placeholder='Departure Time'
-              placeholderTextColor='gray'
-              borderBottomColor='gray'
-              borderBottomWidth={1}
-            /> 
-
-          <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Car Make: </Text>
-            <View style={styles.spacer}/>      
-            <TextInput
-              style={styles.txtInput}
+              style={styles.txt}
               onChangeText={(carMake) => this.setState({carMake})}
               keyboardType='default'
               value={this.state.carMake}
-              placeholder='Hyundai'
+              placeholder={"Enter your Car Make (i.e. Honda)"}
               placeholderTextColor='gray'
               borderBottomColor='gray'
               borderBottomWidth={1}
-            />
-          </View>
-          
-          <View style={styles.spacer}/>   
-
-          <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Car Model: </Text>
-            <View style={styles.verticalSpacer}/>      
+            />  
             <TextInput
-              style={styles.txtInput}
+              style={styles.txt}
               onChangeText={(carModel) => this.setState({carModel})}
               keyboardType='default'
               value={this.state.carModel}
-              placeholder='Sonata'
+              placeholder={"Enter your Car Model (i.e. Civic)"}
               placeholderTextColor='gray'
               borderBottomColor='gray'
               borderBottomWidth={1}
-            />
-          </View>
-
-          <View style={styles.spacer}/>   
-
-          <View style={styles.inputRow}>
-            <Text style={styles.inputTitle}>Phone: </Text>
-            <View style={styles.spacer}/>      
+            />              
             <TextInput
-              style={styles.txtInput}
-              onChangeText={(phone) => this.setState({phone})}
+              style={styles.txt}
+              onChangeText={(carColor) => this.setState({carColor})}
               keyboardType='default'
-              value={this.state.phone}
-              placeholder='(xxx) - xxx - xxxxx'
+              value={this.state.carColor}
+              placeholder={"Enter your Car Color (i.e. Silver)"}
               placeholderTextColor='gray'
               borderBottomColor='gray'
               borderBottomWidth={1}
-            />
+            />   
           </View>
 
           <View style={styles.container}>
             <TouchableOpacity 
-              style={styles.btn} 
-              onPress={this.onSubmit}>
+              style={styles.submitBtn} 
+              onPress={this.onSignOut}>
                 <Text style={styles.txtBtn}>Submit</Text>
             </TouchableOpacity>
           </View>
-        </View>       
+        </KeyboardAwareScrollView>
       </View>
     );
   } // end of render
@@ -176,8 +123,8 @@ class OfferRideScreen extends Component{
 
 // give db token from redux to the component
 function mapStateToProps(state) {
-  const { db_token,user } = state;
+  // const { db_token,user } = state;
   return { db_token: state['auth']['db_token'], user: state['auth']['user'] }
 }
 
-export default connect(mapStateToProps, { createUserOnDatabase })(OfferRideScreen);
+export default connect(mapStateToProps, {signOut, updateUserOnDatabase })(OfferRideScreen);

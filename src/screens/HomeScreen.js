@@ -58,7 +58,7 @@ class HomeScreen extends Component{
   render() {
     return (
       <View style={styles.container}>
-        <Text>Hello</Text>
+        <View style={styles.spacer}/>
         <EventCard/>
         
       </View>

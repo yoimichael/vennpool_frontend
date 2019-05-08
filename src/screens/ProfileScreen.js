@@ -9,7 +9,7 @@ import styles from '../styles/ProfileStyles.js';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
-import {signOut} from "../actions/auth_actions";
+import {signOut,updateUserOnDatabase} from "../actions/auth_actions";
 
 // Required: name
 // Optional: picture
@@ -22,20 +22,40 @@ class ProfileScreen extends Component{
 
   onSignOutSuccess(){
     console.log("log out success");
-    Actions.reset("Auth");
+    Actions.Welcome();
   }
-  onSignOutError(message){
-      console.log(`log out error: ${message}`);
-      Alert.alert('Log out error.');
+  onError(message){
+    console.log(`Error: ${message}`);
+    Alert.alert('Error.');
   }
   onSignOut = () => {
-      console.log("Trying to log out.")
-      this.props.signOut(
-          this.props.db_token,
-          this.props.user['fb_id'],
-          this.onSignOutSuccess,
-          this.onSignOutError
-      );
+    console.log("Trying to log out.")
+    this.props.signOut(
+        this.props.db_token,
+        this.props.user['fb_id'],
+        this.onSignOutSuccess,
+        this.onError
+    );
+  }
+  onUpdateSuccess(){
+    console.log("Update success");
+    Alert.alert('updated!');
+    Actions.Home();
+  }
+  onUpdateProfile = () => {
+    console.log("Updating profile");
+    // reorganize the data to to fit the database model
+    const user_data = {
+      id: this.props.user['id'],
+      phone: this.state.phone,
+      name : this.state.name,
+      fb_id : this.props.user['fb_id'],
+      fbtoken : this.props.user['fbtoken'],
+      car_info : this.state.carMake + '|' + this.state.carModel + '|' + this.state.carColor,
+    };
+    console.log(`submiting: ${JSON.stringify(user_data)}`);
+    // create user on redux and gepu db
+    this.props.updateUserOnDatabase(this.props.db_token, user_data, this.onSuccess, this.onError);
   }
 
   static navigationOptions = {
@@ -60,9 +80,9 @@ class ProfileScreen extends Component{
 
     this.state = {
       ...this.props.user,
-      carColor: car_info[2],       //''
       carMake: car_info[0],       //''
       carModel: car_info[1],       //''
+      carColor: car_info[2],       //''
       phone: phone,    //''
       clicked: false
     }
@@ -112,24 +132,24 @@ class ProfileScreen extends Component{
             <Text style={styles.txtTitle}>Car Info</Text>
             <TextInput
               style={styles.txt}
-              onChangeText={(carModel) => this.setState({carModel})}
-              keyboardType='default'
-              value={this.state.carModel}
-              placeholder={"Enter your Car Model (i.e. Honda)"}
-              placeholderTextColor='gray'
-              borderBottomColor='gray'
-              borderBottomWidth={1}
-            />   
-            <TextInput
-              style={styles.txt}
               onChangeText={(carMake) => this.setState({carMake})}
               keyboardType='default'
               value={this.state.carMake}
-              placeholder={"Enter your Car Make (i.e. Civic)"}
+              placeholder={"Enter your Car Make (i.e. Honda)"}
               placeholderTextColor='gray'
               borderBottomColor='gray'
               borderBottomWidth={1}
-            />             
+            />  
+            <TextInput
+              style={styles.txt}
+              onChangeText={(carModel) => this.setState({carModel})}
+              keyboardType='default'
+              value={this.state.carModel}
+              placeholder={"Enter your Car Model (i.e. Civic)"}
+              placeholderTextColor='gray'
+              borderBottomColor='gray'
+              borderBottomWidth={1}
+            />              
             <TextInput
               style={styles.txt}
               onChangeText={(carColor) => this.setState({carColor})}
@@ -149,6 +169,13 @@ class ProfileScreen extends Component{
                 <Text style={styles.txtBtn}>Logout</Text>
             </TouchableOpacity>
           </View>
+          <View style={styles.container}>
+            <TouchableOpacity 
+              style={styles.signoutBtn} 
+              onPress={this.onUpdateProfile}>
+                <Text style={styles.txtBtn}>Update</Text>
+            </TouchableOpacity>
+          </View>
         </KeyboardAwareScrollView>
       </View>
     );
@@ -157,8 +184,8 @@ class ProfileScreen extends Component{
 
 // give db token from redux to the component
 function mapStateToProps(state) {
-  const { db_token,user } = state;
+  // const { db_token,user } = state;
   return { db_token: state['auth']['db_token'], user: state['auth']['user'] }
 }
 
-export default connect(mapStateToProps, {signOut, })(ProfileScreen);
+export default connect(mapStateToProps, {signOut, updateUserOnDatabase })(ProfileScreen);

@@ -3,23 +3,34 @@ import { StyleSheet, View, Text, SectionList, Alert, TouchableOpacity} from 'rea
 import styles from '../styles/EventCardStyles';
 import {sectionListData} from '../data/sectionListData';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { Actions } from 'react-native-router-flux';
 
 class SectionHeader extends Component {
   onTest = async() => {
     console.log("on test trigered");
     
-    // Actions.Auth(); 
+    Actions.OfferRide(); 
   }
 
   render() {
     return (
       <View style={styles.header}>
-          <Text style={styles.headerTxt}>{this.props.section.title}</Text>
-          <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.headerTxt}>{this.props.section.title}</Text>
+          </View>
+          <View style={styles.headerShare}>
             <TouchableOpacity 
-              style={styles.signoutBtn} 
+              style={styles.btn} 
               onPress={this.onTest}>
-                <Text style={styles.txtBtn}>Share</Text>
+                <Text style={styles.btnTxt}>Share</Text>
+            </TouchableOpacity>
+            <Text style={styles.linkTxt}>*Link URL*</Text>
+          </View>
+          <View style={styles.header}>
+            <TouchableOpacity 
+              style={styles.btn} 
+              onPress={this.onTest}>
+                <Text style={styles.btnTxt}>Offer A Ride</Text>
             </TouchableOpacity>
           </View>
       </View>
@@ -43,26 +54,19 @@ class EventCard extends Component{
                 `Driver: ` + item.admin + `\n` + 
                 `Available Seats: ` + item.seats + `\n` +
                 `Pickup Location Preference: ` + item.fromAddr + `\n` + 
-                `Destination Location: ` + item.toAddr + `\n` +
                 `Departure Time: ` + item.time + `\n` 
                 
                 )}>
                 <View style={styles.itemContainer}>
-                  <View style={styles.subCardHeaderContainer}>
+                  <View style={styles.rideCardContainer}>
                     <Text style={styles.subCardHeader}>
                       Driver: {item.admin}
                     </Text>
                     <Text style={styles.subCardHeader}>
                       Seats Available: {item.seats}
                     </Text>
-                  </View>
-
-                  <View style={styles.subCardTxtContainer}>
                     <Text style={styles.subCardTxt}>
-                      Pickup Location Preference: {item.fromAddr}
-                    </Text>
-                    <Text style={styles.subCardTxt}>
-                      Destination Location: {item.toAddr}
+                      Pickup Location: {item.fromAddr}
                     </Text>
                     <Text style={styles.subCardTxt}>
                       Departure Time: {item.time}
