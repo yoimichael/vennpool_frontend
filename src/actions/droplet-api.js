@@ -37,10 +37,11 @@ export function deleteUser(db_token,user){
     return axios.delete(url);
 }
 
-export function getPosts(db_token, event_list){
+export function getPosts(db_token, event_time_map){
     axios.defaults.headers.common['Authorization'] = "Token " + db_token;
-    const url = `${API_URL}/api/user/${event_list}`;
-    return axios.get(url);
+    const url = `${API_URL}/api/event/`;
+    console.log(`Sending:\n ${JSON.stringify(event_time_map)}`);
+    return axios.post(url,event_time_map); // it's a post because data is attached
 }
 
 export function getGroups(group_ids){

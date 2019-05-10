@@ -5,10 +5,10 @@ import {sectionListData} from '../data/sectionListData';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Actions } from 'react-native-router-flux';
 
+
 class SectionHeader extends Component {
-  onTest = async() => {
+  onOfferRide = async() => {
     console.log("on test trigered");
-    
     Actions.OfferRide(); 
   }
 
@@ -21,7 +21,7 @@ class SectionHeader extends Component {
           <View style={styles.headerShare}>
             <TouchableOpacity 
               style={styles.shareBtn} 
-              onPress={this.onTest}>
+              onPress={this.onOfferRide}>
                 <Text style={styles.btnTxt}>Share</Text>
             </TouchableOpacity>
             <Text style={styles.linkTxt}>{this.props.section.share}</Text>
@@ -29,7 +29,7 @@ class SectionHeader extends Component {
           <View style={styles.header}>
             <TouchableOpacity 
               style={styles.offerBtn} 
-              onPress={this.onTest}>
+              onPress={this.onOfferRide}>
                 <Text style={styles.btnTxt}>Offer A Ride</Text>
             </TouchableOpacity>
           </View>
@@ -43,6 +43,11 @@ class EventList extends Component{
   GetSectionListItem = item => {
     return(Alert.alert(item));
   };
+  constructor(props){
+    super(props);
+    console.log(`EventList received: ${JSON.stringify(props)}`);
+    
+  }
 
   render() {
     return (

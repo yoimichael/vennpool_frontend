@@ -12,25 +12,36 @@ import TodoApp from '../TodoApp';
 //actions
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
-import {getFacebookEvents}  from '../actions/auth_actions'
+
+import {getPostAndEvents}  from '../actions/home_actions'
+
 
 class HomeScreen extends Component{
 
+  // re-format data from backend to fit the SectionList
+  processDataFromDB(data){
+    return data;
+  }
 
   constructor(props){
     super(props);
-
-    // getFacebookEvents(this.props.user['fb_id'], this.props.user['fbtoken'],limit=2)
-    //   .then((response) => {
-        
+    
+    // getPostAndEvents(this.props.db_token, this.props.user['fb_id'], this.props.user['fbtoken'],limit=2)
+    //   .then((data) => {
+    //     this.state.sectionData = data
+    //     this.state.isReady = true;
     //     // send response to database
     //   })
     //   .catch((message) => {
-    //     //do nothing
+    //     console.log(`error ${message}`);
+    //     alert("Oops, an error occured, my bad");
     //   });
 
     this.state = {
       search: '',
+      isReady: false,
+      sectionData: {}
+
     }
     tag: null
   }
@@ -68,11 +79,16 @@ class HomeScreen extends Component{
 
   
   render() {
+    if (!this.state.isReady) {
+      screen = <Text>Hold on</Text>;
+    } else {
+      screen = <EventList sectionData={this.state.sectionData}/>;
+    }
+
     return (
       <View style={styles.container}>
         <View style={styles.spacer}/>
-        <EventList/>
-        
+        {screen}
       </View>
       );
     // return (
