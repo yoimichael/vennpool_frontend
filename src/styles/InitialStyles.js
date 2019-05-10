@@ -1,4 +1,6 @@
 import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Animated  } from 'react-native';
+import { withTheme, normalize } from 'react-native-elements';
+const deviceWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   txtInput: {
@@ -36,9 +38,11 @@ const styles = StyleSheet.create({
     flex: 1.5
   },    
 
-  devWidth: {
-    width: Dimensions.get('window').width
-  }, 
+  cardSize: {
+    width: Dimensions.get('window').width,
+    height: 450,
+  },
+  
   track: {
     backgroundColor: '#ccc',
     overflow: 'hidden',
@@ -59,23 +63,20 @@ const styles = StyleSheet.create({
     left: 0, 
     right: 0
   },
-  track: {
-    backgroundColor: '#ccc',
-    overflow: 'hidden',
-    height: 2,
-  },
 
   // For input styling (
   btn: {
-    height: 30,
-    width: 200,
+    height: normalize(55),
+    width: deviceWidth-30,
     borderWidth: 1,
-    borderRadius: 50,
-    backgroundColor: 'orange'
+    borderRadius: 4,
+    marginTop: 0,
+    marginBottom: 0  
   },
   txtBtn:{
     textAlign: 'center',
-    fontSize: 20
+    fontSize: 20,
+    color: 'white'
   }
 });
 

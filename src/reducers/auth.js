@@ -6,7 +6,6 @@ import { AuthSession } from 'expo';
 const initialState = {isLoggedIn: false, user: null, db_token:null, exist: false};
 
 const authReducer = (state = initialState, action) => {
-    
     console.log('------start reducer ------');
     switch (action.type) {
         case t.LOGGED_IN:
