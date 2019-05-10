@@ -7,9 +7,9 @@ const FIXED_BAR_WIDTH = 100; //280
 const BAR_SPACE = 10; //10
 
 const images = [
-  'https://facebook.github.io/react/logo-og.png',
-  'https://facebook.github.io/react/logo-og.png',
-  'https://facebook.github.io/react/logo-og.png',
+  require('../../assets/Card1.png'),
+  require('../../assets/Card2.png'),
+  require('../../assets/Card3.png'),
 ]
 
 class CarouselView extends Component{
@@ -26,8 +26,8 @@ class CarouselView extends Component{
       const thisImage = (
         <Image
         key={`image${i}`}
-        source={{uri: image}}
-        style={ styles.devWidth}
+        source={image}
+        style={ styles.cardSize}
         />
       )
       imageArray.push(thisImage)

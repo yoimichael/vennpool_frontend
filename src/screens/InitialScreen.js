@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { StyleSheet, View, Text, Image, Animated, Keyboard, ScrollView, TextInput, TouchableOpacity  } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Button, ThemeProvider } from 'react-native-elements';
+import { Button, ThemeProvider, SocialIcon } from 'react-native-elements';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL }from '../styles/InitialStyles';
 import CarouselView from '../components/CarouselView';
 
@@ -61,12 +61,12 @@ class InitialScreen extends Component{
         
         <View style={styles.container}>
           <View style={styles.spacer}></View>
-          <Text>Please Login with Facebook</Text>
-          <TouchableOpacity 
+          <SocialIcon 
+            raised button type='facebook'
+            title='CONTINUE WITH FACEBOOK'
+            iconsize={19}
             style={styles.btn} 
-            onPress={this.onSignInWithFacebook}>
-              <Text style={styles.txtBtn}>Facebook</Text>
-          </TouchableOpacity>
+            onPress={this.onSignInWithFacebook}/>
         </View>
       </View>
     );
