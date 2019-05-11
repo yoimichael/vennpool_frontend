@@ -6,8 +6,8 @@ var sectionListData = [
     [
       {
         id: 0,
-        admin: 'Martin',
-        fromAddr: 'Lebon Drive',
+        creator: 'Martin',
+        from_addr: 'Lebon Drive',
         toAddr: 'Gilman Drive',
         time: '6:00pm',
         seats: '4',
@@ -16,8 +16,8 @@ var sectionListData = [
       },
       {
         id: 1,
-        admin: 'Martin',
-        fromAddr: 'Lebon Drive',
+        creator: 'Martin',
+        from_addr: 'Lebon Drive',
         toAddr: 'Gilman Drive',
         time: '6:00pm',
         seats: '4',
@@ -33,8 +33,8 @@ var sectionListData = [
     [
       {
         id: 3,
-        admin: 'Kimo',
-        fromAddr: 'Lebon Drive',
+        creator: 'Kimo',
+        from_addr: 'Lebon Drive',
         toAddr: 'Gilman Drive',
         time: '6:00pm',
         seats: '3',
@@ -49,8 +49,8 @@ var sectionListData = [
     [
       {
         id: 4,
-        admin: 'Yang',
-        fromAddr: 'Lebon Drive',
+        creator: 'Yang',
+        from_addr: 'Lebon Drive',
         toAddr: 'Gilman Drive',
         time: '6:00pm',
         seats: '2',
@@ -65,8 +65,8 @@ var sectionListData = [
     [
       {
         id: 5,
-        admin: 'Yang',
-        fromAddr: 'Lebon Drive',
+        creator: 'Yang',
+        from_addr: 'Lebon Drive',
         toAddr: 'Gilman Drive',
         time: '6:00pm',
         seats: '2',
@@ -81,8 +81,8 @@ var sectionListData = [
     [
       {
         id: 6,
-        admin: 'Yang',
-        fromAddr: 'Lebon Drive',
+        creator: 'Yang',
+        from_addr: 'Lebon Drive',
         toAddr: 'Gilman Drive',
         time: '6:00pm',
         seats: '2',
@@ -98,8 +98,8 @@ var sectionListData = [
       // rideCard 1
       {
         id: 7,
-        admin: 'Yang',
-        fromAddr: 'Lebon Drive',
+        creator: 'Yang',
+        from_addr: 'Lebon Drive',
         toAddr: 'Gilman Drive',
         time: '6:00pm',
         seats: '2',
@@ -109,8 +109,8 @@ var sectionListData = [
       //rideCard 2
       {
         id: 8,
-        admin: 'James',
-        fromAddr: 'Lebon Drive',
+        creator: 'James',
+        from_addr: 'Lebon Drive',
         toAddr: 'Gilman Drive',
         time: '6:00pm',
         seats: '2',
@@ -138,8 +138,8 @@ export {sectionListData};
 //         toAddr: '',
 //         ride:[
 //           {
-//             admin: "Martin",
-//             fromAddr: '',
+//             creator: "Martin",
+//             from_addr: '',
 //             toAddr: '',
 //             time: '',
 //             seats: '',

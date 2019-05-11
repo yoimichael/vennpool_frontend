@@ -6,6 +6,7 @@ import { AuthSession } from 'expo';
 const initialState = {isLoggedIn: false, user: null, db_token:null, exist: false};
 
 const authReducer = (state = initialState, action) => {
+    
     console.log('------start reducer ------');
     switch (action.type) {
         case t.LOGGED_IN:
@@ -25,7 +26,7 @@ const authReducer = (state = initialState, action) => {
                 ['user', user],
                 ['db_token', action.db_token]
             ]).then(()=>{
-                console.log('Async user, dbtoken saved');
+                console.log('Async: user, dbtoken saved');
             });
             console.log('------end reducer ------');
             return {...state, isLoggedIn: true, user:action.user, db_token:action.db_token, exist:action.exist};

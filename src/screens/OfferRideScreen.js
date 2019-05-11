@@ -9,7 +9,7 @@ import styles from '../styles/OfferRideStyles';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
-import {signOut,updateUserOnDatabase} from "../actions/auth_actions";
+import {joinRide, postRide} from "../actions/home_actions";
 
 // Required: name
 // Optional: picture
@@ -165,7 +165,7 @@ class OfferRideScreen extends Component{
           <View>
             <TouchableOpacity 
               style={styles.submitBtn} 
-              onPress={this.onSignOut}>
+              onPress={this.onSubmit}>
                 <Text style={styles.txtBtn}>Submit</Text>
             </TouchableOpacity>
           </View>
@@ -182,4 +182,4 @@ function mapStateToProps(state) {
   return { db_token: state['auth']['db_token'], user: state['auth']['user'] }
 }
 
-export default connect(mapStateToProps, {signOut, updateUserOnDatabase })(OfferRideScreen);
+export default connect(mapStateToProps, { })(OfferRideScreen);

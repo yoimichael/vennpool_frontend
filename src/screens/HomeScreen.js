@@ -1,7 +1,7 @@
 // First landing page upon opening app
 // Status: Still need to fix Logout button
 import React, {Component} from 'react';
-import { StyleSheet, Alert, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Dimensions, Animated  } from 'react-native';
+import { RefreshControl, StyleSheet, Alert, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Dimensions, Animated  } from 'react-native';
 import ResponsiveImage from 'react-native-responsive-image';
 import { Button, ThemeProvider } from 'react-native-elements';
 import styles from '../styles/HomeScreenStyles';
@@ -18,32 +18,46 @@ import {getPostAndEvents}  from '../actions/home_actions'
 
 class HomeScreen extends Component{
 
-  // re-format data from backend to fit the SectionList
-  processDataFromDB(data){
-    return data;
-  }
-
   constructor(props){
     super(props);
-    
-    // getPostAndEvents(this.props.db_token, this.props.user['fb_id'], this.props.user['fbtoken'],limit=2)
-    //   .then((data) => {
-    //     this.state.sectionData = data
-    //     this.state.isReady = true;
-    //     // send response to database
-    //   })
-    //   .catch((message) => {
-    //     console.log(`error ${message}`);
-    //     alert("Oops, an error occured, my bad");
-    //   });
 
     this.state = {
+      ...props,
       search: '',
       isReady: false,
-      sectionData: {}
-
+      sectionData: {},
+      refreshing: false,
     }
+    
+    // supporting using this is onRefresh function 
+    this._onRefresh = this._onRefresh.bind(this)
+    
+    // syn when ever visiting home
+    this._onRefresh(forceSync = false);
     tag: null
+  }
+
+
+  _onRefresh(forceSync = true){
+    // sync from online
+    var _this = this;
+    
+    // console.log(`db: ${this.state.db_token}\n fb_id:${this.state.user['fb_id']}\n fbtoken:${this.state.user['fbtoken']}`);
+    getPostAndEvents(this.state.db_token, this.state.user['fb_id'], this.state.user['fbtoken'],limit=2, forceSync)
+      .then((event_data) => {
+        // console.log(`SecitonListData: ${JSON.stringify(event_data)}\nlength:${event_data.length}`);
+        console.log('\n------end events------');     
+        let new_state = Object.assign({}, _this.state);   
+        new_state.sectionData = event_data; 
+        new_state.isReady = true;
+        _this.setState(new_state);        
+        console.log('Event data ready:');
+        console.log(JSON.stringify(new_state.sectionData));
+      })
+      .catch((message) => {
+        console.log(`error ${message}`);
+        alert("Oops, an error occured, my bad");
+      });
   }
 
   static navigationOptions = ({navigation}) => {
@@ -82,18 +96,22 @@ class HomeScreen extends Component{
     if (!this.state.isReady) {
       screen = <Text>Hold on</Text>;
     } else {
-      screen = <EventList sectionData={this.state.sectionData}/>;
+      screen = <EventList sectionData={this.state.sectionData} demo={false}/>;
     }
 
     return (
       <View style={styles.container}>
         <View style={styles.spacer}/>
-        {screen}
+        <ScrollView  refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}/>}>
+            {screen}      
+        </ScrollView>
+        <View style={styles.spacer}/>
+        
       </View>
       );
-    // return (
-    //   <TodoApp/>
-    // );
   } // end of render
 } // end of class
 
