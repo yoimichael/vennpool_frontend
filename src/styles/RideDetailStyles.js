@@ -32,6 +32,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  flatList:{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    minHeight: 20,
+  },
   rowContainer:{
     flexDirection: 'row',
     justifyContent: 'space-around',

@@ -1,8 +1,7 @@
 import React,  { Component } from 'react';
-import { ScrollView, RefreshControl, View, Text, SectionList, Alert, TouchableOpacity} from 'react-native';
+import { View, Text, SectionList, Alert, TouchableOpacity} from 'react-native';
 import styles from '../styles/EventCardStyles';
 import {sectionListData} from '../data/sectionListData';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Actions } from 'react-native-router-flux';
 
 
@@ -10,22 +9,23 @@ class SectionHeader extends Component {
 
   constructor(props){
     super(props);
-
     console.log(`setting up header: ${JSON.stringify(this.props.section)}`);
     this.onOfferRide = this.onOfferRide.bind(this);
+
   }
 
   onOfferRide = () => {
-    console.log("on test trigered");
+        
     const postScreenData = {
-      event:this.props.section.title,
-      name: this.props.section.creator.name,
-      car_info: this.props.section.creator.car_info,
+      event: this.props.section.title,
       event_id: this.props.section.id,
-      seats: this.props.section.seats,
-      time_pickup: this.props.section.time,
+      time_return: this.props.section.end_time,
+      return_addr: this.props.section.to_addr,
     }
-    Actions.OfferRide({post_data: postScreenData}); 
+
+    console.log(`Triggering offer a ride with ${JSON.stringify(this.props.section)}`);
+
+    Actions.OfferRide(postScreenData); 
   }
 
   render() {
@@ -68,7 +68,7 @@ class EventList extends Component{
     // if not a demo import it to section
     if (!props.demo)
       this.state.sectionListData = props.sectionData;        
-    console.log(`EventList received: ${JSON.stringify(props)}`);
+    // console.log(`EventList received: ${JSON.stringify(props)}`);
     
     // pass this to ride detail
     this.onRideDetail = this.onRideDetail.bind(this);
@@ -88,6 +88,7 @@ class EventList extends Component{
       seatsAvailable: item.seats,
       time_pickup: item.time,
     }
+    
     Actions.RideDetail(postScreenData); 
   }
 

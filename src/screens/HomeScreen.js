@@ -1,13 +1,9 @@
 // First landing page upon opening app
 // Status: Still need to fix Logout button
 import React, {Component} from 'react';
-import { RefreshControl, StyleSheet, Alert, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Dimensions, Animated  } from 'react-native';
-import ResponsiveImage from 'react-native-responsive-image';
-import { Button, ThemeProvider } from 'react-native-elements';
+import { RefreshControl, View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import styles from '../styles/HomeScreenStyles';
 import EventList from '../components/EventList';
-import CarouselView from '../components/CarouselView';
-import TodoApp from '../TodoApp';
 
 //actions
 import {Actions} from 'react-native-router-flux';
@@ -43,16 +39,12 @@ class HomeScreen extends Component{
     var _this = this;
     
     // console.log(`db: ${this.state.db_token}\n fb_id:${this.state.user['fb_id']}\n fbtoken:${this.state.user['fbtoken']}`);
-    getPostAndEvents(this.state.db_token, this.state.user['fb_id'], this.state.user['fbtoken'],limit=2, forceSync)
+    getPostAndEvents(this.state.db_token, this.state.user['fb_id'], this.state.user['fbtoken'],limit=10, forceSync)
       .then((event_data) => {
-        // console.log(`SecitonListData: ${JSON.stringify(event_data)}\nlength:${event_data.length}`);
+        console.log(`SecitonListData: ${JSON.stringify(event_data)}\nlength:${event_data.length}`);
         console.log('\n------end events------');     
-        let new_state = Object.assign({}, _this.state);   
-        new_state.sectionData = event_data; 
-        new_state.isReady = true;
-        _this.setState(new_state);        
+        _this.setState({sectionData:event_data,isReady:true}); 
         console.log('Event data ready:');
-        console.log(JSON.stringify(new_state.sectionData));
       })
       .catch((message) => {
         console.log(`error ${message}`);

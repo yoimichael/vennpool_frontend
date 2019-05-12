@@ -50,15 +50,14 @@ export function getThisPost(db_token, post_id){
     return axios.get(url); 
 }
 
-export function offerRide(db_token){
+export function offerRide(db_token, posts){
     axios.defaults.headers.common['Authorization'] = "Token " + db_token;
-    const url = `${API_URL}/api/event/`;
-    console.log(`Sending:\n ${JSON.stringify(event_time_map)}`);
-    return axios.post(url,event_time_map); // it's a post because data is attached
+    const url = `${API_URL}/api/post/`;
+    return axios.post(url,posts); // it's a post because data is attached
 }
 
-export function getGroups(group_ids){
+export function toggleJoin(db_token, post_id, uid){
     axios.defaults.headers.common['Authorization'] = "Token " + db_token;
-    const url = `${API_URL}/api/group/`;
-    return axios.get(url).then(response => response.data);
+    const url = `${API_URL}/api/post/${post_id}`;
+    return axios.put(url, {id: uid}); 
 }

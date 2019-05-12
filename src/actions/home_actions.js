@@ -1,23 +1,88 @@
 import * as t from './actionTypes';
 
-import {AsyncStorage,Alert} from 'react-native';
-import {getPosts,getThisPost} from './droplet-api';
+import {AsyncStorage} from 'react-native';
+import {getPosts,getThisPost,offerRide,toggleJoin} from './droplet-api';
 
-const joinRide = () => {
-    
+export const join_quit_Ride = (db_token, pid, eid, uid) => {
+    return new Promise((resolve, reject) => {
+        toggleJoin(db_token, pid, uid)
+            .then((res) => {
+                // local storage update (remove rider... )
+                console.log(`Database reponse: ${JSON.stringify(res.data)}`);
+                
+                const post = res.data;
+                
+                AsyncStorage.getItem('events')
+                .then((value) => {
+                    var events = JSON.parse(value);
+                    var i = 0;
+                    while (i < events.length){
+                        if (events[i].id == eid){
+                            events[i] = post;
+                            break;
+                        }
+                        i += 1;
+                    }            
+                    // console.log(`Updated Toggle data: ${JSON.stringify(events)}`);
+                    AsyncStorage.setItem('events', JSON.stringify(events))
+                        .then(()=> {
+                            resolve(post);
+                        })
+                        .catch((message)=>{
+                            console.log(message);
+                            reject(message)
+                        });
+                });
+            })
+            .catch((message) => {
+                console.log(message);
+                reject(false);
+            });
+    });    
 }
 
-const postRide = () => {
-    
+export const postRides = (db_token, posts) => {
+    return new Promise((resolve, reject) => {
+        offerRide(db_token,posts)
+        .then((res) => {
+            // save it locally 
+            const created_posts = res.data
+            console.log(created_posts);
+            AsyncStorage.getItem('events')
+                .then((value) => {
+                    var events = JSON.parse(value);
+                    var i = 0;
+                    while (i < events.length){
+                        if (events[i].id == posts.eid){
+                            events[i].data = [...events[i].data, ...created_posts]
+                            break;
+                        }
+                    }            
+                    AsyncStorage.setItem('events', JSON.stringify(events))
+                        .then(()=> {
+                            resolve(true);
+                        })
+                        .catch((message)=>{
+                            console.log(message);
+                            reject(message)
+                        });
+                });
+        })
+        .catch((message) => {
+            console.log(message);
+            reject(message);
+        })
+
+    });
 }
 
 export const getPostDetail = (db_token, p_id) => {
     return new Promise((resolve, reject) => {
         console.log(`Getting ${p_id} from database`);
-        
         getThisPost(db_token, p_id)
             .then((response) => {
-                resolve(response.data.data[0]);
+                console.log(`Got gepu post data: ${JSON.stringify(response.data)}`);
+                resolve(response.data);
             })
             .catch((message) => {
                 reject(message);
@@ -33,8 +98,10 @@ const getPostAndEvents = async(db_token, fb_id, fbtoken, limit, forceSync=false)
         const since = new Date().toISOString().split('T')[0]; 
 
         if (forceSync){
+            console.log('Force syncing');
+            
             getPostsAndEventsOnline(db_token,fb_id, fbtoken, since, limit)
-                .then((events_qs, event_title) =>{resolve(events_qs,event_title)})
+                .then((event_data) =>{resolve(event_data)})
                 .catch((message) => {reject(message)});
         }
         else{
@@ -54,7 +121,7 @@ const getPostAndEvents = async(db_token, fb_id, fbtoken, limit, forceSync=false)
                 else{
                     // get them from facebook 
                     getPostsAndEventsOnline(db_token,fb_id, fbtoken, since, limit)
-                        .then((events_qs,event_title) =>{resolve(events_qs,event_title)})
+                        .then((event_data) =>{resolve(event_data)})
                         .catch((message) => {reject(message)});
                 }
             })
@@ -79,7 +146,7 @@ const getPostsAndEventsOnline = (db_token, fb_id, fbtoken,since,limit) => {
             console.log('Got events:');
             
             // create fb_id to title mapping
-            eid_to_title = {}
+            eid_to_info = {}
             // create fb_eid to timestamp mapping (timestamp is for database to clean up)
             eid_to_time = {}
 
@@ -88,13 +155,15 @@ const getPostsAndEventsOnline = (db_token, fb_id, fbtoken,since,limit) => {
                 // const start_time = event['start_time'];
                 
                 const name = event['name'];
-                // add event_id -> title
-                eid_to_title[event.id] = event['name'];
+                // add event_id -> info
+                const address = `${event['place']['name']} (${event['place']['street']})`;
+                eid_to_info[event.id] = {};
+                eid_to_info[event.id].name = event['name'];
+                eid_to_info[event.id].to_addr = address;
+                eid_to_info[event.id].rsvp = event['rsvp_status'];
+                eid_to_info[event.id].end_time = event.end_time;
                 // add event_id -> time data
                 eid_to_time[event.id]=event.end_time;
-                // const address = `${event['place']['name']} (${event['place']['street']})`;
-                // const rsvp = event['rsvp_status'];
-                // const id = event['id'];
                 // console.log(`New Event:\nname:${name}\ndescription:${description.substring(0,10)}\nstart:${start_time}\naddress:${address}\nrsvp:${rsvp}\nid:${id}`);
                 console.log(name);
             });
@@ -108,12 +177,15 @@ const getPostsAndEventsOnline = (db_token, fb_id, fbtoken,since,limit) => {
                     // re-format data from backend to fit the SectionList
                     event_data.forEach(event => {
                         const fb_eid = event['fb_eid'];
-                        event.title = eid_to_title[fb_eid];
+                        event.title = eid_to_info[fb_eid].name;
+                        event.to_addr = eid_to_info[fb_eid].to_addr;
+                        event.rsvp = eid_to_info[fb_eid].rsvp;
+                        event.end_time = eid_to_info[fb_eid].end_time;
                         var data = event.posts;
                         event.data = data;
                         delete event.posts;
                     })
-
+                    
                     // Store to Async 
                     AsyncStorage.multiSet([
                         ['events', JSON.stringify(event_data)],
