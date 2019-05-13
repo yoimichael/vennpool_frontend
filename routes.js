@@ -52,7 +52,7 @@ export default class extends React.Component {
                     <Scene key="Profile" component={ProfileScreen} title="Profile"/>
                     <Scene key="MyRides" component={MyRidesScreen} title="MyRides"/>
                     <Scene key="OfferRide" component={OfferRideScreen} title="OfferRide"/>
-                    <Scene key="RideDetail" component={RideDetailScreen} title="Ride Detail" />
+                    <Scene key="RideDetail" component={RideDetailScreen} title="Ride Detail"/>
                 </Scene>
             </Router>
         )

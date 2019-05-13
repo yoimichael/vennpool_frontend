@@ -7,18 +7,24 @@ export const join_quit_Ride = (db_token, pid, eid, uid) => {
     return new Promise((resolve, reject) => {
         toggleJoin(db_token, pid, uid)
             .then((res) => {
-                // local storage update (remove rider... )
                 console.log(`Database reponse: ${JSON.stringify(res.data)}`);
                 
+                // update local storage 
                 const post = res.data;
-                
                 AsyncStorage.getItem('events')
                 .then((value) => {
                     var events = JSON.parse(value);
                     var i = 0;
                     while (i < events.length){
                         if (events[i].id == eid){
-                            events[i] = post;
+                            var ii = 0;
+                            while(ii < events[i].data.length){
+                                if (events[i].data[ii].id = pid){
+                                    events[i].data[ii] = post;                                 
+                                    break;
+                                }
+                                ii += 1;
+                            }
                             break;
                         }
                         i += 1;
@@ -153,8 +159,10 @@ const getPostsAndEventsOnline = (db_token, fb_id, fbtoken,since,limit) => {
             response.forEach((event) => {
                 // const description = event['description'];
                 // const start_time = event['start_time'];
-                
                 const name = event['name'];
+
+                console.log(`${name} start_time:${event.start_time} end_time: ${event.end_time}`);
+                
                 // add event_id -> info
                 const address = `${event['place']['name']} (${event['place']['street']})`;
                 eid_to_info[event.id] = {};
@@ -163,14 +171,23 @@ const getPostsAndEventsOnline = (db_token, fb_id, fbtoken,since,limit) => {
                 eid_to_info[event.id].rsvp = event['rsvp_status'];
                 eid_to_info[event.id].end_time = event.end_time;
                 // add event_id -> time data
-                eid_to_time[event.id]=event.end_time;
+                // if no end time is specified, default event last 5 days
+                if (event.end_time == null){
+                    var estimated = new Date(event.start_time.substring(0,19));
+                    estimated.setDate(estimated.getDate() + 5);                 
+                    eid_to_time[event.id] = estimated.toISOString();
+                }
+                else{
+                    eid_to_time[event.id] = event.end_time;
+                }
                 // console.log(`New Event:\nname:${name}\ndescription:${description.substring(0,10)}\nstart:${start_time}\naddress:${address}\nrsvp:${rsvp}\nid:${id}`);
-                console.log(name);
             });
 
             // get post data from gepu db
             getPosts(db_token,eid_to_time)
                 .then((response)=>{
+                    // console.log(JSON.stringify(response));
+                    
                     console.log(`GetPosts api response: ${JSON.stringify(response.data)}`);
                     // add title in each event
                     var event_data = response.data;

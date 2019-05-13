@@ -38,9 +38,13 @@ class OfferRideScreen extends Component{
     // name: this.props.user['name'], //'' or user_data.name(?)
     // const car_info = this.props.user.car_info.split('|');
     const phone = (this.props.user.phone != null) ? this.props.user.phone : "";    
-    var ret_time = new Date(props.time_return.substring(0,19));
-    ret_time.setMinutes( ret_time.getMinutes() + ret_time.getTimezoneOffset());
-    console.log(`return time ${ret_time}`);
+    if (props.time_return!=null){
+      var ret_time = new Date(props.time_return.substring(0,19));
+      ret_time.setMinutes( ret_time.getMinutes() + ret_time.getTimezoneOffset());
+      console.log(`return time ${ret_time}`);
+    }
+    else
+      ret_time = new Date();
     
     this.state = {
       ...this.props,

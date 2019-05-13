@@ -28,6 +28,9 @@ class RideDetailScreen extends Component{
 
   constructor(props){
     super(props);
+
+  console.log(JSON.stringify(props));
+      
     this.state = {      
       ...this.props,
       // destinationLocation: 'Gilman Drive',
@@ -36,49 +39,47 @@ class RideDetailScreen extends Component{
       riders: [],
       riders_ready: false,
       clicked: false,
-      joined: false
     }
     if (props.driver_fb_id)
       this.state.driver_photo = {uri: `https://graph.facebook.com/${props.driver_fb_id}/picture?type=large`};
     else
       this.state.driver_photo = require('../../assets/profile.png');
   
-    console.log(`RideDetail: ${JSON.stringify(this.state)}`);
-    
     // fetch riders data
     getPostDetail(this.state.db_token, this.state.post_id)
       .then((data) => {
-        this.populateRidersInfo(data)
+        this.populatePostInfo(data)
       }).catch((message) => {
         alert('Error');
         console.log(message);
-      });
-
-      this.onToggleJoin = this.onToggleJoin.bind(this);
-      this.populateRidersInfo = this.populateRidersInfo.bind(this);
+    });
+    
+    // bind this
+    this.onToggleJoin = this.onToggleJoin.bind(this);
+    this.populatePostInfo = this.populatePostInfo.bind(this);
   }
 
-  populateRidersInfo(data){
+  populatePostInfo(data){
     var riders = []
     // populate users into a list
     data.users.forEach((user) => {
       var rider = {}
-      if (this.props.user.id == user.id)
-        this.setState({joined: true});
       rider.id = user.id;
+      rider.name = user.name;
+      rider.phone = user.phone;
       if (user.fb_id)
         rider.image = {uri: `https://graph.facebook.com/${user.fb_id}/picture?type=large`};
       else
         rider.image = require('../../assets/profile.png');
-      rider.name = user.name;
-      rider.phone = user.phone;
+
       riders.push(rider);
     });
-    this.setState({riders: riders, riders_ready: true})
+    this.setState({riders: riders, riders_ready: true, seatsAvailable: data.seats})
     console.log(`Riders updated: ${JSON.stringify(riders)}`);
   }
   
   onUserInfo(info){
+    // click on user info and copy phone number
     const user = JSON.parse(info);
     Alert.alert(
       user.name,
@@ -96,24 +97,16 @@ class RideDetailScreen extends Component{
   }
 
   onToggleJoin(){ 
+
     // database update
     join_quit_Ride(this.state.db_token, this.state.post_id, this.state.event_id, this.state.user.id)
       .then((item) => {
-        console.log('Toggle updated!');
-        this.populateRidersInfo(item)
-        // UI update increment/decreament user 
-        if (this.state.joined){
-          this.setState({
-            seatsAvailable: item.seats,
-            joined:false,
-          });
-        }
-        else{
-          this.setState({
-            seatsAvailable:this.state.seatsAvailable+1,
-            joined:true
-          });
-        }   
+        // update UI
+        this.populatePostInfo(item);
+        // update EventList
+        // this.props.callback(item);
+
+        console.log(`Post info updated: ${JSON.stringify(item)}`);
       })
       .catch((message) => {
           console.log(message);
