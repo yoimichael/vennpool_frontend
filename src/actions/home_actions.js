@@ -14,21 +14,20 @@ export const join_quit_Ride = (db_token, pid, eid, uid) => {
                 AsyncStorage.getItem('events')
                 .then((value) => {
                     var events = JSON.parse(value);
+                    console.log(`Got from AsyncStorage: ${JSON.stringify(events)}`);
                     var i = 0;
-                    while (i < events.length){
-                        if (events[i].id == eid){
-                            var ii = 0;
-                            while(ii < events[i].data.length){
-                                if (events[i].data[ii].id = pid){
-                                    events[i].data[ii] = post;                                 
-                                    break;
-                                }
+                    while (i < events.length && events[i].id != eid){
+                        i += 1
+                    }
+                    var ii = 0;
+                    while(ii < events[i].data.length && events[i].data[ii].id != pid){
                                 ii += 1;
-                            }
-                            break;
-                        }
-                        i += 1;
-                    }            
+                    }
+                    if (i >= events.length || ii >= events[i].data.length){
+                        reject(`Cannot find such index event ind: ${i}, post ind: ${ii}`)
+                    }
+                    // replace the data with updated post
+                    events[i].data[ii] = post;
                     // console.log(`Updated Toggle data: ${JSON.stringify(events)}`);
                     AsyncStorage.setItem('events', JSON.stringify(events))
                         .then(()=> {
@@ -43,7 +42,7 @@ export const join_quit_Ride = (db_token, pid, eid, uid) => {
             .catch((message) => {
                 console.log(message);
                 reject(false);
-            });
+        });
     });    
 }
 
@@ -63,6 +62,7 @@ export const postRides = (db_token, posts) => {
                             events[i].data = [...events[i].data, ...created_posts]
                             break;
                         }
+                        i += 1;
                     }            
                     AsyncStorage.setItem('events', JSON.stringify(events))
                         .then(()=> {
@@ -164,12 +164,14 @@ const getPostsAndEventsOnline = (db_token, fb_id, fbtoken,since,limit) => {
                 console.log(`${name} start_time:${event.start_time} end_time: ${event.end_time}`);
                 
                 // add event_id -> info
-                const address = `${event['place']['name']} (${event['place']['street']})`;
+                // (${event['place']['street']})
+                const address = `${event['place']['name']}`;
                 eid_to_info[event.id] = {};
                 eid_to_info[event.id].name = event['name'];
                 eid_to_info[event.id].to_addr = address;
                 eid_to_info[event.id].rsvp = event['rsvp_status'];
                 eid_to_info[event.id].end_time = event.end_time;
+                eid_to_info[event.id].start_time = event.start_time
                 // add event_id -> time data
                 // if no end time is specified, default event last 5 days
                 if (event.end_time == null){
@@ -198,6 +200,7 @@ const getPostsAndEventsOnline = (db_token, fb_id, fbtoken,since,limit) => {
                         event.to_addr = eid_to_info[fb_eid].to_addr;
                         event.rsvp = eid_to_info[fb_eid].rsvp;
                         event.end_time = eid_to_info[fb_eid].end_time;
+                        event.start_time = eid_to_info[fb_eid].start_time;
                         var data = event.posts;
                         event.data = data;
                         delete event.posts;

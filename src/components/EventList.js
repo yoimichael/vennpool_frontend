@@ -12,6 +12,12 @@ class SectionHeader extends Component {
     super(props);
     console.log(`setting up header: ${JSON.stringify(this.props.section)}`);
     this.onOfferRide = this.onOfferRide.bind(this);
+
+    this.state = {};    
+    // Formatting Date and Time
+    var date_time = this.props.section.start_time.split('T');
+    this.state.date = date_time[0];
+    this.state.time = date_time[1].substring(0,5);
   }
 
   onOfferRide = () => {
@@ -24,20 +30,15 @@ class SectionHeader extends Component {
     console.log(`Offer a ride with ${JSON.stringify(this.props.section)}`);
     Actions.OfferRide(postScreenData); 
   }
-
+  
   render() {
     return (
       <View style={styles.header}>
           <View style={styles.header}>
             <Text style={styles.headerTxt}>{this.props.section.title}</Text>
-          </View>
-          <View style={styles.headerShare}>
-            <TouchableOpacity 
-              style={styles.shareBtn} 
-              onPress={this.onOfferRide}>
-                <Text style={styles.btnTxt}>Share</Text>
-            </TouchableOpacity>
-            <Text style={styles.linkTxt}>{this.props.section.share}</Text>
+            <Text style={styles.detailHeaderTxt}>Address: {this.props.section.to_addr}</Text> 
+            <Text style={styles.detailHeaderTxt}>Date: {this.state.date}</Text>
+            <Text style={styles.detailHeaderTxt}>Time: {this.state.time}</Text>
           </View>
           <View style={styles.header}>
             <TouchableOpacity 
@@ -76,6 +77,7 @@ class EventList extends Component{
       this.state = {sectionListData:sectionListData}
     else
       this._onRefresh(forceSync = false);
+
   }
 
   _onRefresh(forceSync = true){
@@ -100,7 +102,7 @@ class EventList extends Component{
     if (this.props.demo)
       Actions.RideDetail({demo:true});
     else{
-      console.log(JSON.stringify(this.state));
+      // console.log(JSON.stringify(this.state));
       item = JSON.parse(item);
       
       // compose data needed in RideDetailScreen
@@ -113,7 +115,7 @@ class EventList extends Component{
         post_id: item.id,
         event_id: item.event,
         seatsAvailable: item.seats,
-        time_pickup: item.time,
+        time_pickup: item.time.split('T'),
       }
 
       // get event title from state
@@ -121,6 +123,8 @@ class EventList extends Component{
       while (i < this.state.sectionListData.length){
         if (this.state.sectionListData[i].id == item.event){
           postScreenData.event = this.state.sectionListData[i].title;
+          postScreenData.to_addr = this.state.sectionListData[i].to_addr;
+          postScreenData.event_time = this.state.sectionListData[i].start_time;
           break; 
         }
         i += 1;
@@ -131,25 +135,17 @@ class EventList extends Component{
     }
   }
 
-  onPostChanged(newPost){
+  onPostChanged(){
     // get event title from state
-    var i = 0;
-    var newSectionListData = {...this.state.sectionListData};
-    while (i < newSectionListData.length){
-      if (newSectionListData[i].id == newPost.event){
-        var ii = 0;
-        while (i < newSectionListData[i].data.length){
-          if (newSectionListData[i].data[ii].id == newPost.id){
-            newSectionListData[i].data[ii] = newPost;
-            break
-          }
-          ii += 1;
-        }
-        break; 
-      }
-      i += 1;
-    }
-    this.setState({sectionListData: newSectionListData});
+    var _this = this;
+    getPostAndEvents(this.state.db_token, this.state.user['fb_id'],
+                  this.state.user['fbtoken'],limit=10, forceSync=false)
+      .then((event_data) => {
+        _this.setState({sectionListData:event_data,isReady:true}); 
+      })
+      .catch((message) => {
+        console.log(`error ${message}`);
+      });
   }
 
 
@@ -174,10 +170,10 @@ class EventList extends Component{
                         Seats Available: {item.seats}
                       </Text>
                       <Text style={styles.subCardTxt}>
-                        Pickup Location: {item.from_addr}
+                        Pickup Location: {item.from_addr.replace('(undefined)', '')}
                       </Text>
                       <Text style={styles.subCardTxt}>
-                        Departure Time: {item.time}
+                        Departure Time: {item.time.split('T')[1].substring(0,5)}
                       </Text>
                     </View>
                   </View>

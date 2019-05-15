@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { getPostDetail,join_quit_Ride}  from '../actions/home_actions'
 
+
 class RideDetailScreen extends Component{
   onLogout = async() =>{
     console.log("clicked");
@@ -27,12 +28,10 @@ class RideDetailScreen extends Component{
   };
 
   constructor(props){
-    super(props);
-
-  console.log(JSON.stringify(props));
-      
+    super(props);      
     this.state = {      
       ...this.props,
+      // 2019-10-14T06:00:00Z
       // destinationLocation: 'Gilman Drive',
       event_id: props.event_id,
       post_id: props.post_id,
@@ -40,6 +39,7 @@ class RideDetailScreen extends Component{
       riders_ready: false,
       clicked: false,
     }
+
     if (props.driver_fb_id)
       this.state.driver_photo = {uri: `https://graph.facebook.com/${props.driver_fb_id}/picture?type=large`};
     else
@@ -104,7 +104,7 @@ class RideDetailScreen extends Component{
         // update UI
         this.populatePostInfo(item);
         // update EventList
-        // this.props.callback(item);
+        this.props.callback();
 
         console.log(`Post info updated: ${JSON.stringify(item)}`);
       })
@@ -122,6 +122,9 @@ class RideDetailScreen extends Component{
       <View style={styles.container}>
           <View style={styles.eventContainer}> 
             <Text style={styles.infoTxtTitle}>{this.props.event}</Text>
+            <Text style={styles.infoTxtTitle}>Address: {this.props.to_addr}</Text>
+            <Text style={styles.infoTxtTitle}>Time: {this.props.event_time}</Text>
+
             <View style={styles.rowContainer}>
               <Text style={styles.txtTitle}>Seats Available:</Text>
               <Text style={styles.txt}>{this.state.seatsAvailable}</Text>
@@ -156,7 +159,7 @@ class RideDetailScreen extends Component{
             </View> */}
             <View style={styles.rowContainer}>
               <Text style={styles.txtTitle}>Departure Time:</Text>
-              <Text style={styles.txt}>{this.props.time_pickup}</Text>
+              <Text style={styles.txt}>{this.state.time}</Text>
             </View>
             <View style={styles.rowContainer}>
               <Text style={styles.txtTitle}>Car Info:</Text>

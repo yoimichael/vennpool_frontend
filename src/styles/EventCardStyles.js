@@ -11,8 +11,9 @@ const styles = StyleSheet.create({
   rideCardContainer:{
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-around',
-    margin: 10
+    justifyContent: 'center',
+    margin: 20,
+    alignItems: 'flex-start'
   },
   subCardTxtContainer:{
     flex: 1,
@@ -24,13 +25,12 @@ const styles = StyleSheet.create({
     flex: 1,
     width: deviceWidth -60,
     flexDirection: 'column',
-    alignItems: 'center',
     backgroundColor: '#ECAA48', 
     borderColor: '#ECAA48',
     borderWidth: 1,
     borderRadius: 15/2,
     marginBottom: 5,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 
   header: {
@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     borderColor:'#D86512',
     alignSelf: 'center',
     justifyContent: 'space-around',
-    marginBottom: 10
+    marginBottom: 10,
+    alignItems: 'center'
   },
   headerShare:{
     flex: 1,
@@ -61,11 +62,22 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: 'white',
-    alignSelf: 'center'
-  },
+    alignSelf: 'center',
+    textAlign: 'center',
+    margin: 5,
 
+  },
+  detailHeaderTxt:{
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  detailInfoTxt:{
+    fontSize: 15,
+    color: 'white',
+  },
   subCardHeader:{
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold',
     color: 'black',
   },

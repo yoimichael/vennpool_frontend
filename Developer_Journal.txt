@@ -224,3 +224,6 @@ IMPLEMENTATION:
 #   3. RideDetailsScreen
 #   4. MyRideScreen
 #  Continue on Tuesday at 2pm-11pm.
+
+Day 17 and 18 (5/11/19 5/12/19)
+# Yang worked on backend

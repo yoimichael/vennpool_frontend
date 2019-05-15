@@ -21,7 +21,7 @@ class CreateAccountScreen extends Component{
   onSubmit(data) {
     // this.setState({error: error}); //clear out error messages
 
-    console.log(`user: ${this.props.user}`);
+    // console.log(`user: ${this.props.user}`);
     // reorganize the data to to fit the database model
     const user_data = {
       phone: this.state.phone,
