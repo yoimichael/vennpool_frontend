@@ -122,9 +122,9 @@ class EventList extends Component{
       var i = 0;
       while (i < this.state.sectionListData.length){
         if (this.state.sectionListData[i].id == item.event){
-          postScreenData.event = this.state.sectionListData[i].title;
+          postScreenData.title = this.state.sectionListData[i].title;
           postScreenData.to_addr = this.state.sectionListData[i].to_addr;
-          postScreenData.event_time = this.state.sectionListData[i].start_time;
+          postScreenData.start_time = this.state.sectionListData[i].start_time;
           break; 
         }
         i += 1;
@@ -135,7 +135,7 @@ class EventList extends Component{
     }
   }
 
-  onPostChanged(){
+  onPostChanged(unUsedParam){
     // get event title from state
     var _this = this;
     getPostAndEvents(this.state.db_token, this.state.user['fb_id'],

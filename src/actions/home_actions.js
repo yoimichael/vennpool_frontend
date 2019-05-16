@@ -39,27 +39,37 @@ const get_my_posts_from_cache = (uid) =>{
                     var ii = 0;
                     // loop through all posts
                     while(ii < events[i].data.length){
+                        var add_this_post = false;
                         if (events[i].data[ii].creator.id == uid){
                             // check if user is a driver  
-                            posts.push(events[i].data[ii]);
+                            add_this_post = true;
                         }
                         else{
                             // check if user is a rider
                             if (Array.isArray(events[i].data[ii].users)){
-                                if (events[i].data[ii].users.includes(uid)){
-                                    posts.push(events[i].data[ii]);
-                                }
+                                if (events[i].data[ii].users.includes(uid))
+                                    add_this_post = true  
                             }
                             else if (iii < events[i].data[ii].users != null){
                                 var iii = 0;
                                 while(iii < events[i].data[ii].users.length){
-                                    if (events[i].data[ii].users[iii].id = uid){
+                                    if (events[i].data[ii].users[iii].id == uid){
+                                        add_this_post = true  
                                         break;
                                     }
                                     iii += 1;
                                 }
                             }
                         }
+                        // add it to my posts
+                        if (add_this_post){
+                            var this_post = {...events[i].data[ii]};
+                            this_post.title = events[i].title;
+                            this_post.to_addr = events[i].to_addr;
+                            this_post.start_time = events[i].start_time;
+                            posts.push(this_post);
+                        }
+                        
                         ii += 1;
                     }
                     i += 1

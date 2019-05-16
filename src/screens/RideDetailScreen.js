@@ -30,7 +30,7 @@ class RideDetailScreen extends Component{
   constructor(props){
     super(props);      
     this.state = {      
-      ...this.props,
+      ...props,
       // 2019-10-14T06:00:00Z
       // destinationLocation: 'Gilman Drive',
       event_id: props.event_id,
@@ -104,7 +104,7 @@ class RideDetailScreen extends Component{
         // update UI
         this.populatePostInfo(item);
         // update EventList
-        this.props.callback();
+        this.props.callback(item);
 
         console.log(`Post info updated: ${JSON.stringify(item)}`);
       })
@@ -121,9 +121,9 @@ class RideDetailScreen extends Component{
     return (
       <View style={styles.container}>
           <View style={styles.eventContainer}> 
-            <Text style={styles.infoTxtTitle}>{this.props.event}</Text>
+            <Text style={styles.infoTxtTitle}>{this.props.title}</Text>
             <Text style={styles.infoTxtTitle}>Address: {this.props.to_addr}</Text>
-            <Text style={styles.infoTxtTitle}>Time: {this.props.event_time}</Text>
+            <Text style={styles.infoTxtTitle}>Time: {this.props.start_time}</Text>
 
             <View style={styles.rowContainer}>
               <Text style={styles.txtTitle}>Seats Available:</Text>

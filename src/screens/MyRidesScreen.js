@@ -1,7 +1,9 @@
 // First landing page upon opening app
 import React, {Component} from 'react';
-import { RefreshControl, ScrollView, View, Text, SectionList, Alert, TouchableOpacity} from 'react-native';
+import { ScrollView, View, Text, SectionList, Alert, TouchableOpacity} from 'react-native';
 import styles from '../styles/EventCardStyles';
+import {getPostAndEvents}  from '../actions/home_actions'
+import {connect} from 'react-redux';
 
 import { Actions } from 'react-native-router-flux';
 
@@ -28,6 +30,8 @@ class MyRides extends Component{
     super(props);
 
     this.state = {
+      ...props.user,
+      db_token: props.db_token,
       sectionListData: [{data:props.posts}],
       search: '',
     }
@@ -38,53 +42,51 @@ class MyRides extends Component{
   }
 
   onRideDetail(item){
-    if (this.props.demo)
-      Actions.RideDetail({demo:true});
-    else{
-      // console.log(JSON.stringify(this.state));
-      item = JSON.parse(item);
-      
-      // compose data needed in RideDetailScreen
-      const postScreenData = {
-        driver: item.creator.name,
-        driver_fb_id: item.creator.fb_id,
-        pickupLocation: item.from_addr,
-        driver_phone: item.creator.phone,
-        car_info: item.creator.car_info,
-        post_id: item.id,
-        event_id: item.event,
-        seatsAvailable: item.seats,
-        time_pickup: item.time.split('T')[1].substring(0,5),
-      }
+    // console.log(JSON.stringify(this.state));
+    item = JSON.parse(item);
+    
+    // compose data needed in RideDetailScreen
+    const postScreenData = {
+      driver: item.creator.name,
+      driver_fb_id: item.creator.fb_id,
+      pickupLocation: item.from_addr,
+      driver_phone: item.creator.phone,
+      car_info: item.creator.car_info,
+      post_id: item.id,
+      event_id: item.event,
+      seatsAvailable: item.seats,
+      time_pickup: item.time.split('T')[1].substring(0,5),
 
-      // get event title from state
-      var i = 0;
-      while (i < this.state.sectionListData.length){
-        if (this.state.sectionListData[i].id == item.event){
-          postScreenData.event = this.state.sectionListData[i].title;
-          postScreenData.to_addr = this.state.sectionListData[i].to_addr;
-          postScreenData.event_time = this.state.sectionListData[i].start_time;
-          break; 
-        }
-        i += 1;
-      }
-
-      // go to ride detail, passing in a callback function to update seatsAvailable 
-      Actions.RideDetail({...postScreenData, callback:this.onPostChanged}); 
+      title: item.title,
+      to_addr: item.to_addr,
+      start_time: item.start_time
     }
+
+    // go to ride detail, passing in a callback function to update seatsAvailable 
+    Actions.RideDetail({...postScreenData, callback:this.onPostChanged}); 
+  
   }
 
-  onPostChanged(){
+  onPostChanged(newPost){
     // get event title from state
-    var _this = this;
-    getPostAndEvents(this.state.db_token, this.state.user['fb_id'],
-                  this.state.user['fbtoken'],limit=10, forceSync=false)
-      .then((event_data) => {
-        _this.setState({sectionListData:event_data}); 
-      })
-      .catch((message) => {
-        console.log(`error ${message}`);
-      });
+    var new_sectionListData = this.state.sectionListData;
+    var i = 0;
+    while(i < new_sectionListData[0].data.length){
+      const cur_post = new_sectionListData[0].data[i];
+      console.log(cur_post);
+      
+      if (cur_post.id == newPost.id){
+        // persist event information
+        newPost.title = cur_post.title;
+        newPost.to_addr = cur_post.to_addr;
+        newPost.start_time = cur_post.start_time;
+        new_sectionListData[0].data[i] = newPost;
+        break;
+      }
+      i += 1
+    }
+    this.setState({sectionListData:new_sectionListData}); 
+
   }
 
 
@@ -123,4 +125,7 @@ class MyRides extends Component{
   }
 }
 
-export default MyRides;
+function mapStateToProps(state) {
+  return { db_token: state['auth']['db_token'], user: state['auth']['user'] }
+}
+export default connect(mapStateToProps, {})(MyRides);
