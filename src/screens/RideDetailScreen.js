@@ -57,6 +57,11 @@ class RideDetailScreen extends Component{
     // bind this
     this.onToggleJoin = this.onToggleJoin.bind(this);
     this.populatePostInfo = this.populatePostInfo.bind(this);
+
+    // Formatting Date and Time
+    var date_time = this.props.start_time.split('T');
+    this.state.date = date_time[0];
+    this.state.time = date_time[1].substring(0,5);
   }
 
   populatePostInfo(data){
@@ -121,57 +126,57 @@ class RideDetailScreen extends Component{
     return (
       <View style={styles.container}>
           <View style={styles.eventContainer}> 
-            <Text style={styles.infoTxtTitle}>{this.props.title}</Text>
-            <Text style={styles.infoTxtTitle}>Address: {this.props.to_addr}</Text>
-            <Text style={styles.infoTxtTitle}>Time: {this.props.start_time}</Text>
-
-            <View style={styles.rowContainer}>
-              <Text style={styles.txtTitle}>Seats Available:</Text>
-              <Text style={styles.txt}>{this.state.seatsAvailable}</Text>
-            </View>
-            <TouchableOpacity 
-              style={styles.btn} 
-              onPress={this.onToggleJoin}>
-                <Text style={styles.txt}>Join/Leave</Text>
-            </TouchableOpacity>          
+            <Text style={styles.headerTxt}>{this.props.title}</Text>
+            <Text style={styles.txt}>Location: {this.props.to_addr}</Text>
+            <Text style={styles.txt}>Time: {this.state.time}</Text>
+            <Text style={styles.txt}>Date: {this.state.date}</Text>
           </View>
+
+                   
+
 
           <View style={styles.driverContainer}> 
-            <Image style={styles.img} source={this.state.driver_photo}/>
             <View style={styles.rowContainer}>
-              <Text style={styles.driverTxtTitle}>Driver:</Text>
-              <Text style={styles.driverTxt}>{this.props.driver}</Text>
+              <Image style={styles.img} source={this.state.driver_photo}/>
+              <View style={styles.infoContainer}>
+                <Text style={styles.txtTitle}>Seats Available:{this.state.seatsAvailable}</Text>
+                <TouchableOpacity 
+                  style={styles.btn} 
+                  onPress={this.onToggleJoin}>
+                    <Text style={styles.txt}>Join/Leave</Text>
+                </TouchableOpacity> 
+              </View>
             </View>
-            <View style={styles.rowContainer}>
-              <Text style={styles.driverTxtTitle}>Phone:</Text>
-              <Text style={styles.driverTxt}>{this.props.driver_phone}</Text>
-            </View>
+            
+              <View style={styles.rowContainer}>
+                <Text style={styles.txtTitle}>Driver: </Text>
+                <Text style={styles.txt}>{this.props.driver}</Text>
+              </View>
+              <View style={styles.rowContainer}>
+                <Text style={styles.txtTitle}>Phone: </Text>
+                <Text style={styles.txt}>{this.props.driver_phone}</Text>
+              </View> 
+              <View style={styles.rowContainer}>
+                <Text style={styles.txtTitle}>Pickup Location:</Text>
+                <Text style={styles.txt}>{this.props.pickupLocation}</Text>
+              </View>
+              <View style={styles.rowContainer}>
+                <Text style={styles.txtTitle}>Departure Time:</Text>
+                <Text style={styles.txt}>{this.state.time_pickup}</Text>
+              </View>
+              <View style={styles.rowContainer}>
+                <Text style={styles.txtTitle}>Car Info:</Text>
+                <Text style={styles.txt}>{this.props.car_info}</Text>
+              </View>
           </View>
 
-          <View style={styles.infoContainer}>
-            <View style={styles.rowContainer}>
-              <Text style={styles.txtTitle}>Pickup Location:</Text>
-              <Text style={styles.txt}>{this.props.pickupLocation}</Text>
-            </View>
-            {/* <View style={styles.rowContainer}>
-              <Text style={styles.txtTitle}>Destination Location:</Text>
-              <Text style={styles.txt}>{this.state.destinationLocation}</Text>
-            </View> */}
-            <View style={styles.rowContainer}>
-              <Text style={styles.txtTitle}>Departure Time:</Text>
-              <Text style={styles.txt}>{this.state.time_pickup}</Text>
-            </View>
-            <View style={styles.rowContainer}>
-              <Text style={styles.txtTitle}>Car Info:</Text>
-              <Text style={styles.txt}>{this.props.car_info}</Text>
-            </View>
-          </View>
+          
 
       <View style={styles.colContainer}>
-          <View>
-            <Text style={styles.infoTxtTitle}>Others in the Ride</Text>
-          </View>
+
           <View style={styles.rideContainer}>
+          <Text style={styles.txtOthers}>Others in the Ride</Text>
+
           <View style={styles.rowContainer}>
           {this.state.riders_ready &&
             <FlatList
@@ -182,7 +187,7 @@ class RideDetailScreen extends Component{
                 <TouchableWithoutFeedback onPress={ () => this.onUserInfo(JSON.stringify(item))}>
                     <View style={styles.colContainer}>
                     <Image style={styles.img} source={item.image}/>
-                    <Text style={styles.nameTxt}>{item.name}</Text>
+                    <Text style={styles.txt}>{item.name}</Text>
                   </View>
                 </TouchableWithoutFeedback>
 

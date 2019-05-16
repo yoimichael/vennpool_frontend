@@ -37,7 +37,7 @@ class HomeScreen extends Component{
   static navigationOptions = ({navigation}) => {
     const {params = {}} = navigation.state;
     return{
-      title: 'Feed',
+      title: 'Events',
       headerLeft: (
         <TouchableOpacity
           style={styles.btn}
@@ -55,17 +55,16 @@ class HomeScreen extends Component{
       ),
       headerStyle: {
         height: 75,
-        backgroundColor: '#D86512',
+        backgroundColor: '#FAEBD7',
       },
-      headerTintColor: 'white',
+      headerTintColor: 'black',
       headerTitleStyle:{
         fontSize: 30,
-        fontWeight: 'bold'
+        fontWeight: 'normal'
       },
       gesturesEnabled: false // Check if it breaks the app
     }
   }
-
   
   render() {
     return (

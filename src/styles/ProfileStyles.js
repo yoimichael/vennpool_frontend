@@ -1,4 +1,6 @@
 import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Animated  } from 'react-native';
+const deviceWidth = Dimensions.get('window').width;
+const deviceHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   // Used for input box styling
@@ -7,6 +9,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: '#F4F4ED',
+    width: deviceWidth,
     flex: 1
   },
   containerText: {
@@ -24,7 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "normal",
     width: 250,
-    height:50,
+    height:40,
     borderWidth: 1,
     marginBottom: 5,
     textAlign: 'center',

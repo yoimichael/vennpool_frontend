@@ -4,7 +4,9 @@ import styles from '../styles/EventCardStyles';
 import {sectionListData} from '../data/sectionListData';
 import { Actions } from 'react-native-router-flux';
 import {connect} from 'react-redux';
-import {getPostAndEvents}  from '../actions/home_actions'
+import {getPostAndEvents}  from '../actions/home_actions';
+import { CheckBox } from 'react-native-elements';
+
 
 class SectionHeader extends Component {
   
@@ -18,6 +20,10 @@ class SectionHeader extends Component {
     var date_time = this.props.section.start_time.split('T');
     this.state.date = date_time[0];
     this.state.time = date_time[1].substring(0,5);
+    
+    this.state.clicked = false;
+    this.state.toggleCheckbox = this.toggleCheckbox.bind(this);
+
   }
 
   onOfferRide = () => {
@@ -29,6 +35,11 @@ class SectionHeader extends Component {
     }
     console.log(`Offer a ride with ${JSON.stringify(this.props.section)}`);
     Actions.OfferRide(postScreenData); 
+  }
+
+  toggleCheckbox =() => {
+    this.setState({clicked: !this.state.clicked});
+    console.log(this.state.clicked);
   }
   
   render() {
@@ -47,6 +58,7 @@ class SectionHeader extends Component {
                 <Text style={styles.btnTxt}>Offer A Ride</Text>
             </TouchableOpacity>
           </View>
+
       </View>
     );
   }
@@ -66,7 +78,8 @@ class EventList extends Component{
       isReady: false,
       refreshing: false,
     }
-    
+    this.state.clicked = true;
+
     // supporting using the variable: this 
     this._onRefresh = this._onRefresh.bind(this)
     this.onRideDetail = this.onRideDetail.bind(this);
@@ -78,6 +91,8 @@ class EventList extends Component{
     else
       this._onRefresh(forceSync = false);
 
+      this.state.clicked = false;
+      this.state.toggleCheckbox = this.toggleCheckbox.bind(this);
   }
 
   _onRefresh(forceSync = true){
@@ -147,20 +162,35 @@ class EventList extends Component{
         console.log(`error ${message}`);
       });
   }
-
-
+  toggleCheckbox =() => {
+    this.setState({clicked: !this.state.clicked});
+    console.log(this.state.clicked);
+  }
   render() {
     return (
+      
+      
       (this.state.isReady) &&
         <ScrollView  refreshControl={
           <RefreshControl
             refreshing={this.state.refreshing}
             onRefresh={this._onRefresh}/>}>
-          <SectionList
+            <View style={styles.rowContainer}>
+              <Text style={styles.subCardTxt}>Show/Hide All Rides</Text> 
+              <CheckBox
+                checked={this.state.clicked}
+                onPress={this.toggleCheckbox}
+                checkedColor='orange'
+                uncheckedColor='orange'
+              />
+              </View>
+          <SectionList onPress={this.state.clicked}
             renderItem={( {item} ) =>
               <TouchableOpacity onPress={()=>{
                 this.onRideDetail(JSON.stringify(item))
                 }}>
+                {this.state.clicked &&
+                  <View>
                   <View style={styles.itemContainer}>
                     <View style={styles.rideCardContainer}>
                       <Text style={styles.subCardHeader}>
@@ -177,6 +207,8 @@ class EventList extends Component{
                       </Text>
                     </View>
                   </View>
+                  </View>}
+                  
               </TouchableOpacity>
             }
             renderSectionHeader={ ({section}) => {

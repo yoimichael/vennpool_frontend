@@ -13,15 +13,17 @@ const styles = StyleSheet.create({
   },
   eventContainer:{
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
     backgroundColor: '#D86512',
     borderRadius: 5,
+    width: deviceWidth-30,
+    padding: 10
   },
   driverContainer:{
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'left',
     backgroundColor: '#D86512',
     padding: 10,
     borderColor: '#D86512',
@@ -33,62 +35,65 @@ const styles = StyleSheet.create({
   infoContainer:{
     flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'left',
   },
   flatList:{
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    minHeight: 20,
+    minHeight:0,
+    minWidth: 0
   },
   rowContainer:{
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   colContainer:{
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
 
   },
   rideContainer:{
     backgroundColor: '#D86512',
     padding: 10,
     borderColor: '#D86512',
-    backgroundColor: '#D86512',
     borderWidth: 1,
     marginBottom: 5,
     borderRadius: 15/2,
   },
   // Types of Text
   infoTxtTitle:{
-    fontSize: 25,
-    fontWeight: "bold",
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  headerTxt:{
+    fontSize: 30,
+    fontWeight: 'normal',
+    color: 'white',
+    alignSelf: 'center',
+    textAlign: 'center',
   },
   txtTitle:{
     fontSize: 16,
     fontWeight: "bold",
-  },
-  driverTxtTitle:{
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  driverTxt:{
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'normal'
-  },
-  nameTxt:{
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'normal',
+    color: "white"
   },
   txt:{
     fontSize: 16,
     fontWeight: 'normal',
-    textAlign: 'center'
+    textAlign: 'center',
+    alignSelf: 'center',
+    color: 'white'
+  },
+  txtOthers:{
+    fontSize: 20,
+    fontWeight: 'normal',
+    textAlign: 'center',
+    alignSelf: 'center',
+    color: 'white'
   },
 
   // img
@@ -102,10 +107,8 @@ const styles = StyleSheet.create({
   //btn
   btn:{
     width: 100,
-    height:30,
+    height:40,
     borderWidth: 1,
-    marginTop: 5,
-    marginBottom: 5,
     borderColor: '#F8B261',
     backgroundColor: '#F8B261',
     shadowOffset:{  width: 1,  height: 1,  },
@@ -113,7 +116,9 @@ const styles = StyleSheet.create({
     shadowOpacity: .25,
     borderWidth: 1,
     borderRadius: 15/2,
-
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginLeft: 10
   },
   
 });

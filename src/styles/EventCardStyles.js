@@ -117,7 +117,11 @@ const styles = StyleSheet.create({
     shadowOpacity: .25,
     borderRadius: 15/2,
   },
-
+  rowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   SectionListItemStyle: {
     fontSize: 15,
     padding: 15,

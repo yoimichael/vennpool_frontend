@@ -30,12 +30,12 @@ class OfferRideScreen extends Component{
 
     headerStyle: {
       height: 75,
-      backgroundColor: '#D86512',
+      backgroundColor: '#FAEBD7',
     },
-    headerTintColor: 'white',
+    headerTintColor: 'black',
     headerTitleStyle:{
-      fontSize: 20,
-      fontWeight: 'bold'
+      fontSize: 30,
+      fontWeight: 'normal'
     }
   };
 
@@ -183,7 +183,7 @@ class OfferRideScreen extends Component{
               borderBottomWidth={1}
             />
           </View>}
-          {this.state.clicked &&
+          
           <View style={styles.timeContainer}>
             <Text style={styles.txtTitle}>Return Time</Text>
             <DatePickerIOS

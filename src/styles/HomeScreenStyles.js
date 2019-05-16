@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
   txtBtn:{
     textAlign: 'center',
     fontSize: 20,
-    color: 'white',
+    color: 'black',
     textShadowColor: 'black',
     textShadowOffset: {width: 3, height:3},
-    textShadowRadius: 5,
+    textShadowRadius: 30,
   },
   btn: {
-    width: 100
+    width: 100,
   },
 });
 

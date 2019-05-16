@@ -18,7 +18,8 @@ class MyRides extends Component{
     },
     headerTintColor: 'black',
     headerTitleStyle:{
-      fontWeight: 'bold'
+      fontWeight: 'normal',
+      fontSize: 30
     }
   };
 
@@ -108,6 +109,9 @@ class MyRides extends Component{
                       </Text>
                       <Text style={styles.subCardTxt}>
                         Pickup Location: {item.from_addr.replace('(undefined)', '')}
+                      </Text>
+                      <Text style={styles.subCardTxt}>
+                        Date: {item.time.split('T')[0]}
                       </Text>
                       <Text style={styles.subCardTxt}>
                         Departure Time: {item.time.split('T')[1].substring(0,5)}
