@@ -185,6 +185,7 @@ class OfferRideScreen extends Component{
             />
           </View>}
           
+          {this.state.clicked &&
           <View style={styles.timeContainer}>
             <Text style={styles.txtTitle}>Return Time</Text>
             <DatePickerIOS
@@ -193,7 +194,7 @@ class OfferRideScreen extends Component{
               mode='time'
               minuteInterval={5}
             />
-          </View>
+          </View>}
           
 
           <View>
