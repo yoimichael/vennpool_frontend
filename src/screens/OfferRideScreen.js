@@ -103,7 +103,6 @@ class OfferRideScreen extends Component{
       })
   }
   
-
   toggleCheckbox =() => {
     this.setState({clicked: !this.state.clicked});
   }
@@ -112,7 +111,6 @@ class OfferRideScreen extends Component{
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView>
-          
           <View style={styles.yourinfoContainer}> 
             <Text style={styles.infoTxtTitle}>{this.props.event}</Text>
           </View>
@@ -137,6 +135,7 @@ class OfferRideScreen extends Component{
               borderBottomWidth={1}
             />
           </View>
+
           <View style={styles.timeContainer}>
             <Text style={styles.txtTitle}>Departure Time</Text>
             <DatePickerIOS
@@ -146,6 +145,7 @@ class OfferRideScreen extends Component{
               minuteInterval={5}
             />
           </View>
+
           <View style={styles.rowContainer}>
             <Text style={styles.txtTitle}>Initial Available Seats:</Text>
             <TextInput
@@ -159,6 +159,7 @@ class OfferRideScreen extends Component{
               maxLength={2}
             />  
           </View>
+
           <View style={styles.rowContainer}>
             <Text style={styles.txt}>Willing to drive back?</Text>
             <CheckBox
@@ -193,7 +194,7 @@ class OfferRideScreen extends Component{
               minuteInterval={5}
             />
           </View>
-          }
+          
 
           <View>
             <TouchableOpacity 

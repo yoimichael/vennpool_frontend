@@ -20,9 +20,6 @@ class SectionHeader extends Component {
     var date_time = this.props.section.start_time.split('T');
     this.state.date = date_time[0];
     this.state.time = date_time[1].substring(0,5);
-    
-    this.state.clicked = false;
-    this.state.toggleCheckbox = this.toggleCheckbox.bind(this);
 
   }
 
@@ -35,11 +32,6 @@ class SectionHeader extends Component {
     }
     console.log(`Offer a ride with ${JSON.stringify(this.props.section)}`);
     Actions.OfferRide(postScreenData); 
-  }
-
-  toggleCheckbox =() => {
-    this.setState({clicked: !this.state.clicked});
-    console.log(this.state.clicked);
   }
   
   render() {
@@ -58,7 +50,6 @@ class SectionHeader extends Component {
                 <Text style={styles.btnTxt}>Offer A Ride</Text>
             </TouchableOpacity>
           </View>
-
       </View>
     );
   }
@@ -169,7 +160,6 @@ class EventList extends Component{
   render() {
     return (
       
-      
       (this.state.isReady) &&
         <ScrollView  refreshControl={
           <RefreshControl
@@ -184,13 +174,12 @@ class EventList extends Component{
                 uncheckedColor='orange'
               />
               </View>
-          <SectionList onPress={this.state.clicked}
+          <SectionList
             renderItem={( {item} ) =>
               <TouchableOpacity onPress={()=>{
                 this.onRideDetail(JSON.stringify(item))
                 }}>
                 {this.state.clicked &&
-                  <View>
                   <View style={styles.itemContainer}>
                     <View style={styles.rideCardContainer}>
                       <Text style={styles.subCardHeader}>
@@ -206,7 +195,6 @@ class EventList extends Component{
                         Departure Time: {item.time.split('T')[1].substring(0,5)}
                       </Text>
                     </View>
-                  </View>
                   </View>}
                   
               </TouchableOpacity>
@@ -218,7 +206,6 @@ class EventList extends Component{
             keyExtractor={(item, index) => item.id}>
           </SectionList>
         </ScrollView> 
-      
     );
   }
 }
