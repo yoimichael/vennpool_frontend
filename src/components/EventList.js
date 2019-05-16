@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {getPostAndEvents}  from '../actions/home_actions'
 
 class SectionHeader extends Component {
-
+  
   constructor(props){
     super(props);
     console.log(`setting up header: ${JSON.stringify(this.props.section)}`);
@@ -115,7 +115,7 @@ class EventList extends Component{
         post_id: item.id,
         event_id: item.event,
         seatsAvailable: item.seats,
-        time_pickup: item.time.split('T'),
+        time_pickup: item.time.split('T')[1].substring(0,5),
       }
 
       // get event title from state

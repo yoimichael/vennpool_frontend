@@ -17,6 +17,12 @@ import {postRides} from "../actions/home_actions";
 // Optional: carColor
 // Optional: phone 
 
+
+const addTimeZoneOffset = (new_date) => {
+  new_date.setMinutes(new_date.getMinutes() - new_date.getTimezoneOffset());
+  return new_date
+}
+
 class OfferRideScreen extends Component{
 
   static navigationOptions = {
@@ -54,7 +60,7 @@ class OfferRideScreen extends Component{
       event: props.event,
       phone: phone,    //''
       seatsAvailable: '4',
-      clicked: true,
+      clicked: false,
     }
 
     if (this.state.fb_id)
@@ -74,16 +80,17 @@ class OfferRideScreen extends Component{
     const post_going = {
       from_addr: this.state.location_pickup,
       seats: this.state.seatsAvailable,
-      time: this.state.time_pickup
+      time: addTimeZoneOffset(this.state.time_pickup)
     };
     posts.post1 = post_going;
     if (this.state.clicked){
       posts.post2 = {
         from_addr: this.state.return_addr,
         seats: this.state.seatsAvailable,
-        time: this.state.time_return
+        time: addTimeZoneOffset(this.state.time_return)
       }
     }
+    
     console.log(`sending posts ${JSON.stringify(posts)}`);
     
     // send request to database
@@ -153,7 +160,7 @@ class OfferRideScreen extends Component{
             />  
           </View>
           <View style={styles.rowContainer}>
-            <Text style={styles.txtTitle}>Willing to drive back?</Text>
+            <Text style={styles.txt}>Willing to drive back?</Text>
             <CheckBox
               checked={this.state.clicked}
               onPress={this.toggleCheckbox}

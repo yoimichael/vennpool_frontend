@@ -3,6 +3,75 @@ import * as t from './actionTypes';
 import {AsyncStorage} from 'react-native';
 import {getPosts,getThisPost,offerRide,toggleJoin} from './droplet-api';
 
+
+export const get_my_posts = (uid) => {
+    // TODO:: store posts in cache?
+    console.log(`Check my rides with id: ${uid}`);
+    
+    return new Promise((resolve, reject) => {
+        get_my_posts_from_cache(uid)
+            .then((posts) => {
+                if (posts == null)
+                    reject("WHAT?!")   
+                console.log(`My posts: ${JSON.stringify(posts)}`);
+                
+                resolve(posts);
+            })
+            .catch((message) => {
+                console.log(`GET MY POSTS ERROR: ${message}`);
+                reject(message);
+            });
+    });
+    
+}
+
+const get_my_posts_from_cache = (uid) =>{
+    return new Promise((resolve, reject) => {
+        // loop through all rides and get a list of posts of this user
+        AsyncStorage.getItem('events')
+            .then((value) => {
+                var events = JSON.parse(value);
+                var posts = [];
+
+                var i = 0;
+                // loop through all events
+                while (i < events.length){
+                    var ii = 0;
+                    // loop through all posts
+                    while(ii < events[i].data.length){
+                        if (events[i].data[ii].creator.id == uid){
+                            // check if user is a driver  
+                            posts.push(events[i].data[ii]);
+                        }
+                        else{
+                            // check if user is a rider
+                            if (Array.isArray(events[i].data[ii].users)){
+                                if (events[i].data[ii].users.includes(uid)){
+                                    posts.push(events[i].data[ii]);
+                                }
+                            }
+                            else if (iii < events[i].data[ii].users != null){
+                                var iii = 0;
+                                while(iii < events[i].data[ii].users.length){
+                                    if (events[i].data[ii].users[iii].id = uid){
+                                        break;
+                                    }
+                                    iii += 1;
+                                }
+                            }
+                        }
+                        ii += 1;
+                    }
+                    i += 1
+                }
+                resolve(posts);
+            })
+            .catch(message => reject(message));
+    });
+}
+
+
+
 export const join_quit_Ride = (db_token, pid, eid, uid) => {
     return new Promise((resolve, reject) => {
         toggleJoin(db_token, pid, uid)
@@ -17,14 +86,14 @@ export const join_quit_Ride = (db_token, pid, eid, uid) => {
                     console.log(`Got from AsyncStorage: ${JSON.stringify(events)}`);
                     var i = 0;
                     while (i < events.length && events[i].id != eid){
-                        i += 1
+                        i += 1;
                     }
                     var ii = 0;
                     while(ii < events[i].data.length && events[i].data[ii].id != pid){
-                                ii += 1;
+                        ii += 1;
                     }
                     if (i >= events.length || ii >= events[i].data.length){
-                        reject(`Cannot find such index event ind: ${i}, post ind: ${ii}`)
+                        reject(`Cannot find such index event ind: ${i}, post ind: ${ii}`);
                     }
                     // replace the data with updated post
                     events[i].data[ii] = post;
@@ -193,19 +262,21 @@ const getPostsAndEventsOnline = (db_token, fb_id, fbtoken,since,limit) => {
                     console.log(`GetPosts api response: ${JSON.stringify(response.data)}`);
                     // add title in each event
                     var event_data = response.data;
-                    // re-format data from backend to fit the SectionList
+                    // gather information together
                     event_data.forEach(event => {
                         const fb_eid = event['fb_eid'];
+                        // put pre-stored info into this object
                         event.title = eid_to_info[fb_eid].name;
                         event.to_addr = eid_to_info[fb_eid].to_addr;
                         event.rsvp = eid_to_info[fb_eid].rsvp;
                         event.end_time = eid_to_info[fb_eid].end_time;
                         event.start_time = eid_to_info[fb_eid].start_time;
+                        // change the name posts to data for SectionList
                         var data = event.posts;
                         event.data = data;
                         delete event.posts;
                     })
-                    
+
                     // Store to Async 
                     AsyncStorage.multiSet([
                         ['events', JSON.stringify(event_data)],
@@ -213,7 +284,6 @@ const getPostsAndEventsOnline = (db_token, fb_id, fbtoken,since,limit) => {
                     ]).then(()=>{
                         console.log('Async: events saved');
                     });
-
                     resolve(event_data);
                 }).catch(error => {
                     reject(JSON.stringify(error));

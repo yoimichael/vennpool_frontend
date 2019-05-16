@@ -7,14 +7,35 @@ import EventList from '../components/EventList';
 
 //actions
 import {Actions} from 'react-native-router-flux';
+import {connect} from 'react-redux';
+
+
+import {get_my_posts}  from '../actions/home_actions'
+
 
 class HomeScreen extends Component{
 
   constructor(props){
     super(props);
+    this.onMyRides = this.onMyRides.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({onMyRides: this.onMyRides});
+  }
+  onMyRides(){
+    get_my_posts(this.props.uid)
+      .then(posts => {
+        Actions.MyRides({posts: posts})
+      })
+      .catch((message) => {
+        console.log(message);
+        alert("ERROR");
+      })
   }
 
   static navigationOptions = ({navigation}) => {
+    const {params = {}} = navigation.state;
     return{
       title: 'Feed',
       headerLeft: (
@@ -28,7 +49,7 @@ class HomeScreen extends Component{
       headerRight: (
         <TouchableOpacity 
           style={styles.btn} 
-          onPress={() => {Actions.MyRides()}}>
+          onPress={params.onMyRides}>
             <Text style={styles.txtBtn}>My Rides</Text>
         </TouchableOpacity>
       ),
@@ -56,4 +77,11 @@ class HomeScreen extends Component{
       );
   } // end of render
 } // end of class
-export default HomeScreen;
+
+function mapStateToProps(state) {
+  const { db_token,user } = state;
+  // console.log(`loading state: ${state['auth']['db_token']}`);
+  return { uid: state['auth']['user']['id'] }
+}
+
+export default connect(mapStateToProps, {})(HomeScreen);

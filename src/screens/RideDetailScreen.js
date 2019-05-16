@@ -1,6 +1,6 @@
 // First landing page upon opening app
 import React, {Component} from 'react';
-import {Clipboard, Alert, View, Text, FlatList, TouchableOpacity, Image, TouchableWithoutFeedback} from 'react-native';
+import {Linking, Alert, View, Text, FlatList, TouchableOpacity, Image, TouchableWithoutFeedback} from 'react-native';
 import styles from '../styles/RideDetailStyles';
 
 import { connect } from 'react-redux';
@@ -82,10 +82,10 @@ class RideDetailScreen extends Component{
     // click on user info and copy phone number
     const user = JSON.parse(info);
     Alert.alert(
-      user.name,
+      'Contact',
       `${user.name}'s phone number is ${user.phone}`,
       [
-        {text: 'Copy Cell #', onPress: () => Clipboard.setString(user.phone)},
+        {text: 'Call', onPress: () => Linking.openURL(`tel:${user.phone}`)},
         {
           text: 'Cancel',
           onPress: () => console.log('Cancel Pressed'),
@@ -159,7 +159,7 @@ class RideDetailScreen extends Component{
             </View> */}
             <View style={styles.rowContainer}>
               <Text style={styles.txtTitle}>Departure Time:</Text>
-              <Text style={styles.txt}>{this.state.time}</Text>
+              <Text style={styles.txt}>{this.state.time_pickup}</Text>
             </View>
             <View style={styles.rowContainer}>
               <Text style={styles.txtTitle}>Car Info:</Text>
