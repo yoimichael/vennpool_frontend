@@ -61,7 +61,7 @@ export function signOut(db_token,fb_id,onSuccess,onError) {
             dispatch({type: t.LOGGED_OUT});
             onSuccess();
         }).catch((error)=>{
-            const e = JSON.stringify(error);
+            const e = JSON.stringify(`Log out error: ${error}`);
             console.log(e);
             onError(e);
         })

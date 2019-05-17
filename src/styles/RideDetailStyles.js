@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   driverContainer:{
     flexDirection: 'column',
-    alignItems: 'left',
+    alignItems: 'flex-start',
     backgroundColor: '#D86512',
     padding: 10,
     borderColor: '#D86512',
@@ -34,8 +34,7 @@ const styles = StyleSheet.create({
   },
   infoContainer:{
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'left',
+    justifyContent: 'flex-start',
   },
   flatList:{
     flexDirection: 'row',

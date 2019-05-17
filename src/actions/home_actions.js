@@ -4,25 +4,31 @@ import {AsyncStorage} from 'react-native';
 import {getPosts,getThisPost,offerRide,toggleJoin} from './droplet-api';
 
 
-export const get_my_posts = (uid) => {
+export const get_my_posts = () => {
     // TODO:: store posts in cache?
-    console.log(`Check my rides with id: ${uid}`);
-    
     return new Promise((resolve, reject) => {
-        get_my_posts_from_cache(uid)
-            .then((posts) => {
-                if (posts == null)
-                    reject("WHAT?!")   
-                console.log(`My posts: ${JSON.stringify(posts)}`);
-                
-                resolve(posts);
-            })
-            .catch((message) => {
-                console.log(`GET MY POSTS ERROR: ${message}`);
-                reject(message);
-            });
-    });
+        AsyncStorage.getItem('user')
+        .then((user) => {
+            console.log(`user got: ${user}`);
+            uid = JSON.parse(user).id;
+            console.log(`Check my rides with id: ${uid}`);
     
+            get_my_posts_from_cache(uid)
+                .then((posts) => {
+                    if (posts == null)
+                        reject("WHAT?!")   
+                    console.log(`My posts: ${JSON.stringify(posts)}`);               
+                    resolve(posts);
+                })
+                .catch((message) => {
+                    console.log(`GET MY POSTS ERROR: ${message}`);
+                    reject(message);
+                });
+
+        })
+        .catch((message) => {console.log(message)});
+
+    });
 }
 
 const get_my_posts_from_cache = (uid) =>{

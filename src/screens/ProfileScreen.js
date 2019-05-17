@@ -21,7 +21,6 @@ import {signOut,updateUserOnDatabase} from "../actions/auth_actions";
 class ProfileScreen extends Component{
 
   onSignOutSuccess(){
-    console.log("log out success");
     Actions.Welcome();
   }
   onError(message){

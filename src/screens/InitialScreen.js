@@ -35,8 +35,7 @@ class InitialScreen extends Component{
     }).catch((error) => {
           // when a reject is issued
 // Actions.Home(); //TODO :Temporary (delete later when yang fixes login issue)
-          alert('sign in on database error');
-          console.log(error);
+          console.log(`sign in on database error: ${error}`);
           
       });
   }
@@ -55,19 +54,15 @@ class InitialScreen extends Component{
   render() {
     return (
     <View style={styles.container}>
-        <View style={styles.carousel}>
           <CarouselView/>
-        </View>
-        
-        <View style={styles.container}>
-          <View style={styles.spacer}></View>
+          <View style={styles.fbContainer}>
           <SocialIcon 
             raised button type='facebook'
             title='CONTINUE WITH FACEBOOK'
             iconsize={19}
             style={styles.btn} 
             onPress={this.onSignInWithFacebook}/>
-        </View>
+            </View>
       </View>
     );
   } // end of render

@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, Image, ScrollView, Dimensions, Animated  } from 'react-native';
 import { withTheme, normalize } from 'react-native-elements';
 const deviceWidth = Dimensions.get('window').width;
-
+const deviceHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   txtInput: {
     height: 30,
@@ -16,31 +16,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FAEBD7',
-    flex: 1
   },
 
-  spacer: {
-    flex: .1
+  fbContainer:{
+    flexDirection: 'column',
+    height: 200,
+    width: deviceWidth,
+    justifyContent: 'center'
   },
-  carousel: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 2
-  },  
-  containerbtn: {
-    width: Dimensions.get('window').width,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FAEBD7',
-    flex: 1.5
-  },    
-
   cardSize: {
-    width: Dimensions.get('window').width,
-    height: 450,
+    flexDirection: 'column',
+    width: deviceWidth,
+    height: deviceHeight-200
   },
   
   track: {
@@ -48,14 +35,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     height: 2
   },
-  barContainer: {
-    // position: 'absolute',
-    zIndex: 2,
-    // top: 40
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
+
   bar: {
     backgroundColor: 'black',
     height: 2, // 2 
@@ -67,17 +47,11 @@ const styles = StyleSheet.create({
   // For input styling (
   btn: {
     height: normalize(55),
-    width: deviceWidth-30,
     borderWidth: 1,
     borderRadius: 4,
     marginTop: 0,
     marginBottom: 0  
   },
-  txtBtn:{
-    textAlign: 'center',
-    fontSize: 20,
-    color: 'white'
-  }
 });
 
 export default styles;

@@ -82,7 +82,7 @@ class EventList extends Component{
     else
       this._onRefresh(forceSync = false);
 
-      this.state.clicked = false;
+      // this.state.clicked = false;
       this.state.toggleCheckbox = this.toggleCheckbox.bind(this);
   }
 

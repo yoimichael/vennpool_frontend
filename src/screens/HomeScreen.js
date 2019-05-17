@@ -23,8 +23,9 @@ class HomeScreen extends Component{
   componentDidMount() {
     this.props.navigation.setParams({onMyRides: this.onMyRides});
   }
+
   onMyRides(){
-    get_my_posts(this.props.uid)
+    get_my_posts()
       .then(posts => {
         Actions.MyRides({posts: posts})
       })
@@ -77,10 +78,11 @@ class HomeScreen extends Component{
   } // end of render
 } // end of class
 
-function mapStateToProps(state) {
-  const { db_token,user } = state;
-  // console.log(`loading state: ${state['auth']['db_token']}`);
-  return { uid: state['auth']['user']['id'] }
-}
+// function mapStateToProps(state) {
+//   const { db_token,user } = state;
+//   // console.log(`loading state: ${state['auth']['db_token']}`);
+//   return { uid: state['auth']['user']['id'] }
+// }
+// export default connect(mapStateToProps, {})(HomeScreen);
 
-export default connect(mapStateToProps, {})(HomeScreen);
+export default HomeScreen;

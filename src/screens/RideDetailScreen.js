@@ -132,9 +132,6 @@ class RideDetailScreen extends Component{
             <Text style={styles.txt}>Date: {this.state.date}</Text>
           </View>
 
-                   
-
-
           <View style={styles.driverContainer}> 
             <View style={styles.rowContainer}>
               <Image style={styles.img} source={this.state.driver_photo}/>
@@ -175,7 +172,7 @@ class RideDetailScreen extends Component{
       <View style={styles.colContainer}>
 
           <View style={styles.rideContainer}>
-          <Text style={styles.txtOthers}>Others in the Ride</Text>
+          <Text style={styles.txtOthers}>Others</Text>
 
           <View style={styles.rowContainer}>
           {this.state.riders_ready &&
